@@ -20,7 +20,7 @@ import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-
+from scipy.linalg import orthogonal_procrustes
 
 # =====================================================================
 # SECCION 0. PARAMETROS Y SEMILLA                         (Punto 1)
@@ -398,6 +398,21 @@ def fig4_colineal_puntos(t, w, d=0.01):
 # =====================================================================
 # SECCION H. PROGRAMA PRINCIPAL
 # =====================================================================
+def verificaciones(X, Xc):
+    P("\n=== VERIFICACIONES (SciPy, ortogonalidad, formula del minimo) ===")
+    r = rng_for(2, NOISE.index(0.1), 0)
+    Y = X @ Q0 + B0 + make_noise(r, Xc, 0.1)
+    Yc = Y - Y.mean(0)
+    Q, b, S = procrustes(X, Y, solo_rotacion=False)
+    R, escala = orthogonal_procrustes(Xc, Yc)  # SciPy no centra: se le pasan datos centrados
+    P(f"||Q_propio - R_scipy||_F = {np.linalg.norm(Q - R):.2e}")
+    P(f"scale SciPy = {escala:.10f} ; suma de valores singulares = {S.sum():.10f}")
+    P(f"||Q^T Q - I||_F = {np.linalg.norm(Q.T @ Q - np.eye(2)):.2e}")
+    c_directo = cost(Xc, Yc, Q)
+    c_formula = np.linalg.norm(Xc) ** 2 + np.linalg.norm(Yc) ** 2 - 2 * S.sum()
+    P(f"costo directo = {c_directo:.12f} ; formula = {c_formula:.12f}")
+    P(f"|directo - formula| = {abs(c_directo - c_formula):.2e}")
+
 def main():
     # Punto 1
     X = make_points()
@@ -409,6 +424,7 @@ def main():
     summ3 = exp3_reflexion(X, Xc)
     t, w = make_collinear_base()
     summ4 = exp4_colineal(t, w)
+    verificaciones(X, Xc)
 
     # Punto 5: figuras
     fig1_puntos(X, Xc)
@@ -416,7 +432,7 @@ def main():
     fig3_casi_colineal(summ4)
     fig4_colineal_puntos(t, w)
 
-    with open("resultados.txt", "w") as f:
+    with open("resultados.txt", "w", encoding="utf-8") as f:
         f.write("\n".join(log))
     print("\nListo. Archivos generados.")
 
