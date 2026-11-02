@@ -1,6 +1,7 @@
 # Recuperación de transformaciones rígidas bidimensionales bajo ruido mediante Procrustes ortogonal
 
 **Tema asignado:** Alineamiento de configuraciones mediante Procrustes
+
 **Estado del trabajo:** Entrega Parcial (etiqueta: `avance-parcial`)
 
 ## Integrantes
