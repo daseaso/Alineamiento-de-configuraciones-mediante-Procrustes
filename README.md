@@ -105,13 +105,16 @@ El archivo Experimentos de Procrustres octogonal en el plano.py está dividido e
 | Núcleo común | A | procrustes(), rot(), rng_for(), make_noise(), cost(), angle_deg(), metrics() |
 | Ejecución | H | main() |
 
+
 **Importaciones**
 
 Se usan solo csv, numpy y matplotlib (con el backend Agg, que permite guardar figuras sin abrir ventanas).
 
+
 **Sección 0: parámetros y semilla**
 
 Todos los parámetros viven al inicio del archivo. La semilla SEED = 20261101 es fija y pública. En lugar de un único generador global, rng_for(*key) (definida en la sección A) crea un generador independiente para cada combinación (experimento, nivel de ruido, repetición). Así cada corrida es reproducible por separado y cambiar el número de repeticiones no altera las demás.
+
 
 **Sección A: núcleo y utilidades**
 
@@ -123,43 +126,51 @@ Las utilidades auxiliares son:
         -angle_deg: error angular (devuelve nan si los determinantes difieren).
         -metrics: separa el residuo de ajuste (rmse_fit, contra Y ruidoso) del error de recuperación (q_err, b_err, rmse_true, contra la verdad).
         
+        
 **Sección B: construcción de los puntos** 
 
 Se generan N = 30 puntos. Para que sean asimétricos se suma un término exponencial a la coordenada x (sesgo) y se añade una curvatura 0.15· x²/4 a la coordenada y. Esto rompe cualquier simetría de espejo, de modo que una reflexión no pueda confundirse con una rotación. Para comprobar que no son colineales, report_points imprime los valores singulares de Xc y el cociente s₂/s₁, además de la asimetría (skewness) de x.
+
 
 **Sección C: rotación con ruido**
 
 Para cada uno de los 7 niveles de ruido y cada una de las 20 repeticiones se construye Y = X Q0 + b0 + E, se resuelve sobre SO(2) y se guardan las métricas (error de Q, error angular, error de b, RMSE de ajuste y RMSE contra la señal limpia). El nivel 0 sirve de control: el error debe ser del orden de la precisión de máquina
 
+
 **Sección D: reflexión, O(2) frente a SO(2)**
 
 Ahora la verdad es Q0_ref = Q0·diag(1, −1), con determinante −1. En cada corrida se resuelven los dos problemas, se calculan ambos costos y se compara costo_SO2 − costo_O2 con 4·σ₂(M), donde σ₂ es el segundo valor singular de M. Se registra el error absoluto de esa igualdad, que debe ser del orden de 1e-13. Al final hay un control: con verdad = rotación, la diferencia debe ser 0.
+
 
 **Sección E: configuraciones casi colineales**
 
 Se construyen puntos X = [t, δ·w], con t en un rango amplio y w ruido normal. Al bajar δ la nube se aplana sobre una recta: el cociente s₂/s₁ de Xc baja de 0.37 a 0.0004. El ruido relativo se fija en 0.01. En cada nivel se miden:
 
-        -el error de recuperación de Q en SO(2) y en O(2).
-        -la fracción de corridas en que O(2) devuelve una reflexión.
-        -la perturbación ‖Q(Y) − Q(Y limpia)‖, es decir, cuánto se mueve Q al agregar ruido.
-        -por separado, el residuo de ajuste frente al error contra la señal limpia.
+*el error de recuperación de Q en SO(2) y en O(2).
+*la fracción de corridas en que O(2) devuelve una reflexión.
+*la perturbación ‖Q(Y) − Q(Y limpia)‖, es decir, cuánto se mueve Q al agregar ruido.
+*por separado, el residuo de ajuste frente al error contra la señal limpia.
+
 
 **Sección F: repeticiones y estadística**
 
 agg() calcula, para cada métrica, la media y la desviación estándar muestral (ddof = 1) sobre las 20 repeticiones; ignora los nan del error angular cuando los determinantes difieren. save_csv() guarda tanto las corridas individuales como los resúmenes. P() imprime y a la vez acumula el texto para escribirlo en resultados.txt.
 
+
 **Sección G: figuras**
 
 Todas las figuras de puntos usan ax.set_aspect("equal") (función eq), para que una rotación no se vea deformada. Se generan cuatro figuras:
         
-        -fig1: puntos antes y después del alineamiento (rotación y reflexión; en reflexión se compara O(2) con SO(2)).
-        -fig2: errores contra nivel de ruido (media ± desviación sobre las repeticiones).
-        -fig3: casi colinealidad (error de recuperación, residuo frente a error de transformación, fracción de reflexiones).
-        -fig4: puntos casi colineales antes y después del alineamiento.
+*fig1: puntos antes y después del alineamiento (rotación y reflexión; en reflexión se compara O(2) con SO(2)).
+*fig2: errores contra nivel de ruido (media ± desviación sobre las repeticiones).
+*fig3: casi colinealidad (error de recuperación, residuo frente a error de transformación, fracción de reflexiones).
+*fig4: puntos casi colineales antes y después del alineamiento.
+        
 
 **Sección H: programa principal**
 
 main() ejecuta todo en orden: genera los puntos, corre los tres experimentos con sus repeticiones, produce las cuatro figuras y guarda el registro completo en resultados.txt.
+
 
 ## Resultados principales
 
