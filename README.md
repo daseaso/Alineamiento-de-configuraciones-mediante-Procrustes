@@ -16,6 +16,21 @@ El problema consiste en recuperar analíticamente una transformación rígida (r
 ## Objetivo
 Formular y demostrar matemáticamente la solución del problema de Procrustes mediante la descomposición en valores singulares (SVD) para minimizar la discrepancia cuadrática medida en norma de Frobenius. Adicionalmente, implementar esta solución en Python para contrastar el error de ajuste geométrico frente al error real de recuperación de parámetros.
 
+## Alcance
+
+**Incluido**
+* Dimensión p = 2, con correspondencia conocida entre puntos (la fila *i* de X se compara con la fila *i* de Y).
+* Transformaciones rígidas: rotación, reflexión y traslación. La traslación se elimina centrando los datos; no se estima escala (s = 1).
+* Comparación entre la solución sobre O(2) (rotaciones y reflexiones) y sobre SO(2) (solo rotaciones propias).
+* Experimentos con datos sintéticos (30 puntos, semilla fija) para estudiar el efecto del ruido y de la casi colinealidad sobre el error de ajuste y el error de recuperación de la transformación.
+* Verificación numérica de la teoría: ortogonalidad de Q, fórmula del costo mínimo, diferencia de costos 4σ₂(M) entre SO(2) y O(2), y comparación con `scipy.linalg.orthogonal_procrustes`.
+
+**Fuera del alcance**
+* Escala, y dimensiones mayores que 2.
+* Procrustes generalizado (varias configuraciones), pesos por punto o coordenada, datos faltantes y pérdidas robustas.
+* Correspondencias desconocidas (Procrustes–Wasserstein) y optimización sobre variedades.
+* Datos reales: todos los experimentos usan datos generados por el código.
+
 ## Organización de archivos
 
 Los archivos correspondientes a esta entrega se estructuran de la siguiente manera:
