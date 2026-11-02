@@ -117,6 +117,17 @@ Figuras (en `results/`):
 
 El desarrollo matemático completo, las tablas y la interpretación están en [`docs/avance_parcial.pdf`](docs/avance_parcial.pdf).
 
+## Referencias
+
+Las fuentes están citadas en formato IEEE en `docs/`.
+
+## Uso de inteligencia artificial
+
+Declaración completa en `docs/uso_ia.md` (herramienta, versión, finalidad, instrucciones relevantes, partes asistidas y cómo se verificó lo obtenido).
+
+## Contribuciones
+
+El registro de contribuciones de cada integrante está en `docs/`.
 
 ## Enlace al video
 
