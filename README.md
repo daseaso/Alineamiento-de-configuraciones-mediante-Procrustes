@@ -32,7 +32,7 @@ Los archivos correspondientes a esta entrega se estructuran de la siguiente mane
 │   ├── exp4_colineal_resumen.csv      (y exp4_colineal_corridas.csv)
 │   └── fig1 … fig4 (.png)
 └── docs/
-    └── (documentos PDF y uso_ia.md; ver tabla siguiente)
+    └── (documentos PDF y uso_ia.md)
 ```
 
 - `src/`: contiene el script principal de Python con el algoritmo y los experimentos.
