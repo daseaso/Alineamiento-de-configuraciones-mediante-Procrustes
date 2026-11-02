@@ -4,6 +4,7 @@
 
 ## Resumen de tiempos e intervenciones
 
+
 | Integrante | Bloques | Contenido | Tiempo | Duración |
 |---|---|---|---|---|
 | Yanira Sanchez | 1 y 2 | Problema, formulación y reducción a traza | 0:00 – 2:30 | 2 min 30 s |
@@ -12,6 +13,7 @@
 | Clara Palma | 6b, 7 y 8 | Resultado del experimento B, experimento C (puntos casi colineales) e interpretación de los resultados | 6:30 – 9:00 | 2 min 30 s |
 
 ---
+
 
 ## Bloque 1. Presentación del problema
 
