@@ -1,7 +1,11 @@
--# Interpretación detallada de los resultados preliminares
+## Interpretación detallada de los resultados preliminares
 
 **Proyecto:** Recuperación de transformaciones rígidas bidimensionales bajo ruido mediante Procrustes ortogonal
-**Curso:** Álgebra Lineal Aplicada 2026-2 · **Estado:** Entrega parcial (`avance-parcial`)
+
+**Curso:** Álgebra Lineal Aplicada 2026-2 
+
+**Estado:** Entrega parcial (`avance-parcial`)
+
 **Integrantes:** Clara Jimena Palma Dolmos, Yanira Thais Sanchez Cárdenas, Daniel Alejandro Seas Ordinola, Alyssa Antuanette Trujillo Cruzado
 
 > Todas las cifras de este documento salen de ejecutar `src/experimentos_procrustes.py` (semilla fija) y coinciden con `results/resultados.txt` y con los CSV de `results/`. La teoría que se cita (reducción a traza, solución por SVD, unicidad, caso SO(2), centrado) está en el desarrollo matemático.
