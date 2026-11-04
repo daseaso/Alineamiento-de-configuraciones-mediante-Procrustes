@@ -1,4 +1,4 @@
-# Interpretación detallada de los resultados preliminares
+-# Interpretación detallada de los resultados preliminares
 
 **Proyecto:** Recuperación de transformaciones rígidas bidimensionales bajo ruido mediante Procrustes ortogonal
 **Curso:** Álgebra Lineal Aplicada 2026-2 · **Estado:** Entrega parcial (`avance-parcial`)
@@ -151,9 +151,9 @@ Datos generados con una reflexión (det Q₀ = −1). Se resolvió en O(2) (admi
 
 1. **O(2) detecta la reflexión en las 140 corridas** (det = −1 incluso con ε = 0.5). El sobrecosto de no admitir reflexiones, 4σ₂(M) ≈ 270, es grande: los datos "piden" una reflexión con claridad y el ruido no la cambia.
 2. **La diferencia de costos coincide con 4σ₂(M).** Las columnas 3 y 4 son iguales y el error máximo de la igualdad es 2.8e-13 (precisión de máquina relativa a 270). Verifica el teorema de las rotaciones propias [2], [3]: si det(UVᵀ) = −1, la traza máxima baja 2σ₂ y el costo cuadrático sube 4σ₂. El control con verdad = rotación da diferencia 0.
-3. **Forzar SO(2) cuando la verdad es reflexión da un error constante de ≈ 2.** No es casualidad: $Q_{SO}=UDV^\top=(UV^\top)\,R$ con $R=V\operatorname{diag}(1,-1)V^\top$, una reflexión simétrica. Entonces
-   $$\lVert Q_{SO}-Q_O\rVert_F=\lVert R-I\rVert_F=\lVert V\operatorname{diag}(0,-2)V^\top\rVert_F=2,$$
-   sin importar los datos. Entre las dos candidatas la distancia es exactamente 2; frente a la verdad es ≈ 2, porque Q_O no coincide del todo con Q₀ref (su error es de 10⁻³ a 10⁻¹ según el ruido, tabla 4.2). La misma cuenta explica por qué, en el Experimento C, cada confusión de O(2) cuesta ≈ 2.
+3. **Forzar SO(2) cuando la verdad es reflexión da un error constante de $\approx 2$.** No es casualidad: $Q_{\text{SO}}=UDV^\top=(UV^\top)R$ con $R=V\text{diag}(1,-1)V^\top$, una reflexión simétrica. Entonces
+   $$\Vert Q_{\text{SO}}-Q_0\Vert_F=\Vert R-I\Vert_F=\Vert V\text{diag}(0,-2)V^\top\Vert_F=2,$$
+   sin importar los datos. Entre las dos candidatas la distancia es exactamente 2; frente a la verdad es $\approx 2$, porque $Q_0$ no coincide del todo con $Q_0\text{ref}$ (su error es de $10^{-3}$ a $10^{-1}$ según el ruido, tabla 4.2). La misma cuenta explica por qué, en el Experimento C, cada confusión de O(2) cuesta $\approx 2$.
 4. **El error de O(2) crece con el ruido como en el Experimento A:** de 1.5e-3 (ε = 0.01) a 7.5e-2 (ε = 0.5), 50 veces más error para 50 veces más ruido.
 5. **Significado práctico.** Si el problema prohíbe reflexiones pero los datos vienen de una, SO(2) no falla visiblemente: devuelve una rotación razonable. La alarma es el sobrecosto de 4σ₂ respecto de O(2).
 
