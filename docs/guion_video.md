@@ -219,7 +219,7 @@
 
 **Intervención prevista**
 
-> Para cerrar, queremos ser claros sobre los límites de lo que mostramos. Trabajamos con datos sintéticos en el plano, con ruido igual en todas las direcciones y sabiendo de antemano qué punto corresponde a cuál. En problemas reales esto no siempre se cumple: puede haber varias configuraciones a la vez, correspondencias desconocidas o puntos atípicos, que son extensiones que dejamos fuera de esta etapa.
+> Para cerrar, queremos ser claros sobre los límites de lo que mostramos. Trabajamos con datos sintéticos en el plano, sin estimar cambios de escala, con ruido igual en todas las direcciones y sabiendo de antemano qué punto corresponde a cuál. En problemas reales esto no siempre se cumple: puede haber varias configuraciones a la vez, correspondencias desconocidas o puntos atípicos, que son extensiones que dejamos fuera de esta etapa.
 >
 > En resumen: demostramos que el problema de Procrustes se reduce a maximizar una traza y que la SVD lo resuelve con Q igual a U por V transpuesta; implementamos la solución y verificamos numéricamente cada resultado teórico, incluido el costo de cuatro sigma dos; y encontramos que la estabilidad depende del segundo valor singular.
 >
