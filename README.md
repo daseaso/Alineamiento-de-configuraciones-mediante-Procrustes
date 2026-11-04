@@ -93,7 +93,7 @@ El programa tarda unos segundos, imprime los resultados en pantalla y regenera e
 
 **1. Estructura general del código**
 
-El archivo Experimentos de Procrustres octogonal en el plano.py está dividido en secciones identificadas con letras. Cada punto de la consigna tiene su lugar:
+El archivo src/experimentos_procrustes.py está dividido en secciones identificadas con letras. Cada punto de la consigna tiene su lugar:
 
 | Punto de la consigna | Sección | Funciones / elementos |
 |---|---|---|
