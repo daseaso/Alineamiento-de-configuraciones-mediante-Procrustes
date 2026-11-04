@@ -201,25 +201,6 @@ Se aplanó la nube: la segunda coordenada se multiplicó por un espesor δ que b
 
 > **Conclusión C.** Un buen ajuste no garantiza identificar la transformación: el residuo se mantuvo en 0.032 mientras el error de O(2) se multiplicó por mil. Se confirma **H2** con el matiz de que lo que se vuelve inestable no es el ángulo sino la **elección entre rotación y reflexión**.
 
-### 5.4 Complemento: un criterio relativo para saber cuándo desconfiar
-
-El umbral "σ₂(M) < 10⁻³" vale para estos datos y ε = 0.01, pero no es universal: depende de la escala y del ruido. Una señal más justa compara lo que los datos dicen sobre la dirección débil con lo que el ruido hace en ella:
-
-$$ r=\frac{\sigma_2(M)}{s\cdot\sigma_2(X)},\qquad s=\frac{\varepsilon\lVert X_c\rVert_F}{\sqrt{2N}} $$
-
-con σ₂(M) de los datos sin ruido y σ₂(X) el "grosor" de la nube centrada. Simulación auxiliar (`src/simulacion_criterio_relativo.py`): 4 niveles de ruido × 9 espesores × 400 repeticiones. La fracción de reflexiones erróneas depende de r, no de ε o δ por separado:
-
-| Valor de r | Fracción de reflexiones erróneas (aprox.) | Lectura |
-|---|---|---|
-| r ≤ 0.1 | ≈ 0.5 | La elección es casi un sorteo |
-| 0.1 – 0.3 | ≈ 0.4 | Muy poco fiable |
-| 0.3 – 0.6 | ≈ 0.3 | Poco fiable |
-| 0.6 – 1.2 | ≈ 0.15 | Se cometen errores con frecuencia |
-| 1.2 – 2 | ≈ 0.05 | Errores ocasionales |
-| r ≥ 2.5 | ≈ 0 | Elección estable |
-
-Es un criterio **empírico**, no un teorema. Muestra además que la fracción de reflexiones erróneas no puede superar ≈ 0.5 (cuando el ruido domina, elegir es lanzar una moneda). Por eso, en el Experimento C, el **70 %** de δ = 0.001 debe citarse como *"14 de las 20 corridas"* y no como una probabilidad: con muchas repeticiones esa fracción baja a ≈ 40 % (38 % con 4000 repeticiones). Conviene repetir el Experimento C con más repeticiones (por ejemplo 200) antes de citar un porcentaje en el video.
-
 ---
 
 ## 6. Lectura conjunta de los tres experimentos
@@ -241,7 +222,6 @@ Es un criterio **empírico**, no un teorema. Muestra además que la fracción de
 - **Una sola nube base por experimento.** Se repite el ruido, no la nube; otras nubes darían valores algo distintos.
 - **Pocas repeticiones (20).** Sobre todo en el Experimento C, donde los porcentajes tienen margen de ± 10 puntos.
 - **Correspondencias conocidas.** El caso de correspondencias desconocidas (Procrustes–Wasserstein [4]) queda fuera del alcance.
-- **El criterio relativo r es empírico**, obtenido por simulación para esta familia de nubes.
 
 ## 8. Conclusiones
 
@@ -269,7 +249,6 @@ Es un criterio **empírico**, no un teorema. Muestra además que la fracción de
 pip install -r requirements.txt
 cd results
 python ../src/experimentos_procrustes.py          # Experimentos A, B, C y verificaciones -> results/
-python ../src/simulacion_criterio_relativo.py     # Complemento de la sección 5.4 -> results/simulacion_criterio_relativo.csv
 ```
 
 Los archivos generados están en `results/`: `resultados.txt` (todas las tablas y verificaciones), `exp2_*`, `exp3_*`, `exp4_*` (CSV de resumen y de corridas), `puntos_X.csv` y `fig1`–`fig4`.
@@ -292,4 +271,4 @@ Los archivos generados están en `results/`: `resultados.txt` (todas las tablas 
 
 ---
 
-*Nota sobre la elaboración:* este documento se redactó con asistencia de IA (Claude, Claude Sonnet 5.5, de Anthropic) a partir del avance y del código del grupo; las cifras se contrastaron reejecutando el script y las estimaciones de §3.3 y §5.4 con cálculos adicionales. El grupo revisó el contenido y asume su responsabilidad. Declaración completa: [`uso_ia.md`](uso_ia.md).
+*Nota sobre la elaboración:* este documento se redactó con asistencia de IA (Claude, Claude Sonnet 5.5, de Anthropic) a partir del avance y del código del grupo; las cifras se contrastaron reejecutando el script y las estimaciones de §3.3 con cálculos adicionales. El grupo revisó el contenido y asume su responsabilidad. Declaración completa: [`uso_ia.md`](uso_ia.md).
