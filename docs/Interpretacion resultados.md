@@ -36,7 +36,7 @@ Hay dos preguntas distintas:
 - **Transformación verdadera:** rotación Q₀ de 50° y traslación b₀ = (2.5, −1.5). En el Experimento B la verdad es la reflexión Q₀·diag(1, −1).
 - **Ruido:** matriz E gaussiana normalizada para que $\lVert E\rVert_F = \varepsilon\,\lVert X_c\rVert_F$. Así ε es un ruido *relativo*: ε = 0.10 significa que el ruido tiene el 10 % de la norma de la nube centrada.
 - **Repeticiones:** 20 por nivel de ruido, cada una con su propio generador aleatorio (reproducible por separado). Se reporta media ± desviación estándar.
-- **Algoritmo:** se centran X e Y, se calcula la SVD de $M = X_c^\top Y_c$ y se toma $Q = UV^\top$ (en O(2)) [1] o $Q = UDV^\top$ con $D=\operatorname{diag}(1,\det(UV^\top))$ (en SO(2)), que es el algoritmo de Kabsch–Umeyama [2], [3]. La traslación es $b = \bar y - Q^\top \bar x$..
+- **Algoritmo:** se centran X e Y, se calcula la SVD de $M = X_c^\top Y_c$ y se toma $Q = UV^\top$ (en O(2)) [1] o $Q = UDV^\top$ con $D=\text{diag}(1, \det(UV^\top))$ (en SO(2)), que es el algoritmo de Kabsch–Umeyama [2], [3]. La traslación es $b = \bar y - Q^\top \bar x$..
 - **Implementación:** Python con NumPy [5] para el álgebra lineal y SciPy [6] solo para la comparación de la sección 2.
 
 **Hipótesis que se ponen a prueba**
