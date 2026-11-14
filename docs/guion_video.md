@@ -28,13 +28,13 @@
 
 **Intervención prevista**
 
-> Hola, nuestro proyecto es sobre el alineamiento de configuraciones mediante Procrustes.
+> Hola, soy Yanira Sanchez. Junto con Clara Palma, Daniel Seas y Alyssa Trujillo presentamos nuestro proyecto de Álgebra Lineal Aplicada: "Recuperación de transformaciones rígidas bidimensionales bajo ruido mediante Procrustes ortogonal".
 >
 > Imaginen que tenemos dos nubes de puntos, como las de la pantalla. A simple vista parecen distintas, pero en realidad representan la misma forma: una de ellas está rotada y trasladada respecto de la otra. Esto pasa mucho en la práctica, por ejemplo cuando dos cámaras observan el mismo objeto desde posiciones diferentes, o cuando comparamos formas medidas en distintos sistemas de referencia.
 >
 > Nuestra pregunta es doble. Primero: ¿cómo recuperar exactamente esa rotación y esa traslación a partir de los puntos correspondientes? Y segundo: ¿qué tan confiable es esa respuesta cuando los datos tienen ruido o cuando los puntos casi no nos dan información en alguna dirección?
 >
-> Vamos a responder con álgebra lineal: matrices ortogonales, la traza y la descomposición en valores singulares.
+> Nuestro objetivo es demostrar la solución con la descomposición en valores singulares, implementarla en Python y contrastar el error de ajuste con el error real de recuperación de la transformación.
 
 ---
 
@@ -53,9 +53,11 @@
 
 **Intervención prevista**
 
-> Empecemos formulando el problema. Guardamos los puntos en dos matrices, X e Y, donde cada fila es un punto del plano, y la fila i de X corresponde a la fila i de Y.
+> Empecemos con el problema matemático. Guardamos los puntos en dos matrices, X e Y: cada fila es un punto del plano, y la fila i de X corresponde a la fila i de Y.
 >
-> Buscamos una matriz Q ortogonal, es decir, que cumpla Q transpuesta por Q igual a la identidad. Estas matrices conservan las distancias, así que no deforman la figura. Además, su determinante solo puede ser más uno, que corresponde a una rotación, o menos uno, que corresponde a una reflexión. Al conjunto de todas ellas lo llamamos O(2), y a las que solo rotan, SO(2).
+Suponemos que los datos cumplen Y igual a X por Q cero, más una traslación b cero, más un ruido E. No conocemos ni Q cero ni b cero: queremos estimarlos.
+>
+Q debe ser ortogonal, es decir, Q transpuesta por Q igual a la identidad, para que conserve las distancias y no deforme la figura. Su determinante solo puede ser más uno, una rotación, o menos uno, una reflexión. A todas ellas las llamamos O(2), y a las que solo rotan, SO(2).
 >
 > El problema es encontrar la Q que haga a XQ lo más parecida posible a Y, minimizando la norma de Frobenius de XQ menos Y al cuadrado.
 >
@@ -223,4 +225,4 @@
 >
 > En resumen: demostramos que el problema de Procrustes se reduce a maximizar una traza y que la SVD lo resuelve con Q igual a U por V transpuesta; implementamos la solución y verificamos numéricamente cada resultado teórico, incluido el costo de cuatro sigma dos; y encontramos que la estabilidad depende del segundo valor singular.
 >
-> Como siguiente paso, vamos a estudiar con más detalle cómo cambia Q ante perturbaciones de los datos. Muchas gracias.
+> Las referencias principales están en pantalla, y todo el código, los datos y los resultados están en nuestro repositorio de GitHub, cuyo enlace aparece aquí y en el README. Muchas gracias.
