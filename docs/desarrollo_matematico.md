@@ -184,3 +184,4 @@ En los experimentos se fija $s=1$ (solo rotación/reflexión y traslación).
 [8] O. Velásquez Castañón, "Alineamiento de configuraciones mediante Procrustes: Matrices ortogonales, SVD y estabilidad," material de referencia, Álgebra Lineal Aplicada 2026-2, Universidad del Pacífico, oct. 2026.
 
 *Fuentes: el problema ortogonal con solución por SVD se formula y resuelve en forma general en [1]; la corrección del signo del determinante (matriz $D$) es la base algebraica del algoritmo de Kabsch–Umeyama [2], [3], con justificación en [7]; el centrado y la escala óptima se tratan en [3]. La matriz auxiliar $Z$, la caracterización de la unicidad y las proposiciones sobre traslación y escala siguen el material de referencia del curso [8]. La numeración corresponde a la lista de referencias del proyecto, [`fuentes.md`](fuentes.md) (por eso no aparecen los números 4–6).*
+
