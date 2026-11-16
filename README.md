@@ -39,7 +39,7 @@ Los archivos correspondientes a esta entrega se estructuran de la siguiente mane
 ├── README.md
 ├── requirements.txt
 ├── src/
-│   └── experimentos_procrustes.py
+│   └── procrustes_experimentos.py
 ├── results/
 │   ├── resultados.txt
 │   ├── puntos_X.csv
@@ -48,13 +48,18 @@ Los archivos correspondientes a esta entrega se estructuran de la siguiente mane
 │   ├── exp4_colineal_resumen.csv      (y exp4_colineal_corridas.csv)
 │   └── fig1 … fig4 (.png)
 └── docs/
-    └── (documentos PDF y uso_ia.md)
+    ├── desarrollo_matematico.md
+    ├── Interpretacion resultados.md
+    ├── guion_video.md
+    ├── fuentes.md
+    ├── contribuciones.md
+    └── uso_ia.md
 ```
 
 - `src/`: contiene el script principal de Python con el algoritmo y los experimentos.
 - `results/`: archivos generados por el código (tablas `.csv`, gráficos `.png` y el registro `resultados.txt`). Se incluyen ya generados para poder revisarlos sin ejecutar nada; ejecutar el script los regenera con el mismo contenido (semilla fija).
 - `requirements.txt`: dependencias y versiones exactas necesarias para la ejecución.
-- `docs/`: Documento PDF con el desarrollo matemático completo, interpretación de resultados y guion del video.
+- `docs/`: desarrollo matemático completo, interpretación de resultados, guion del video, fuentes (IEEE), registro de contribuciones y declaración de uso de IA.
 
 ## Instrucciones de ejecución
 
@@ -71,7 +76,7 @@ pip install -r requirements.txt
 
 ```
 cd results
-python ../src/experimentos_procrustes.py
+python ../src/procrustes_experimentos.py
 ```
 
 (En Windows PowerShell, escribir cada comando en su propia línea.)
@@ -88,12 +93,15 @@ El programa tarda unos segundos, imprime los resultados en pantalla y regenera e
 | Reflexión: máx. \|(costo_SO2 − costo_O2) − 4σ₂\| | 2.842e-13 |
 | Casi colineal, δ = 0.001: reflexiones erróneas en O(2) | 70 % |
 | Comparación con SciPy: ‖Q propio − Q SciPy‖ | 0.00e+00 |
+| Ortogonalidad: ‖QᵀQ − I‖_F | 4.24e-16 |
+| Costo directo vs. fórmula ‖Xc‖² + ‖Yc‖² − 2Σσᵢ | 2.03e-13 |
+| Contraste con la transpuesta: ‖Q − Q₀ᵀ‖_F (datos exactos) | 2.167 |
 
 ## Implementación y experimentos desarrollados
 
 **1. Estructura general del código**
 
-El archivo src/experimentos_procrustes.py está dividido en secciones identificadas con letras. Cada punto de la consigna tiene su lugar:
+El archivo src/procrustes_experimentos.py está dividido en secciones identificadas con letras. Cada punto de la consigna tiene su lugar:
 
 | Punto de la consigna | Sección | Funciones / elementos |
 |---|---|---|
@@ -108,7 +116,7 @@ El archivo src/experimentos_procrustes.py está dividido en secciones identifica
 
 **2. Importaciones**
 
-Se usan solo csv, numpy y matplotlib (con el backend Agg, que permite guardar figuras sin abrir ventanas).
+Se usan csv, numpy, matplotlib (con el backend Agg, que permite guardar figuras sin abrir ventanas) y scipy (solo `scipy.linalg.orthogonal_procrustes`, para la verificación).
 
 
 **3. Sección 0: parámetros y semilla**
@@ -167,9 +175,9 @@ Todas las figuras de puntos usan ax.set_aspect("equal") (función eq), para que 
 * `fig4`: puntos casi colineales antes y después del alineamiento.
         
 
-**11. Sección H: programa principal**
+**11. Sección H: verificaciones y programa principal**
 
-`main()` ejecuta todo en orden: genera los puntos, corre los tres experimentos con sus repeticiones, produce las cuatro figuras y guarda el registro completo en resultados.txt.
+`verificaciones()` compara la solución con `scipy.linalg.orthogonal_procrustes`, comprueba la ortogonalidad de Q, la fórmula del costo mínimo, el determinante y el contraste con la transpuesta Q₀ᵀ. `main()` ejecuta todo en orden: genera los puntos, corre los tres experimentos con sus repeticiones, las verificaciones, produce las cuatro figuras y guarda el registro completo en resultados.txt.
 
 
 ## Resultados principales
@@ -189,7 +197,7 @@ Los experimentos usan 30 puntos sintéticos en el plano, una rotación verdadera
 
 **3. Puntos casi colineales.** Al reducir el espesor δ de la nube, σ₂(M) baja de 43 a ≈1e-4 y el residuo de ajuste se mantiene constante (≈0.032). Sin embargo, en O(2) la fracción de reflexiones erróneas sube a 10 % (δ = 0.003) y 70 % (δ = 0.001), con error de recuperación de 0.20 y 1.40; en SO(2) el error se mantiene en ≈1.5e-3. **Un buen ajuste no garantiza identificar la transformación.**
 
-**4. Verificaciones.** La solución propia coincide con `scipy.linalg.orthogonal_procrustes` (diferencia 0.00e+00), cumple ‖QᵀQ − I‖ ≈ 4e-16 y su costo coincide con la fórmula ‖Xc‖² + ‖Yc‖² − 2Σσᵢ (diferencia ≈ 2e-13).
+**4. Verificaciones** (sección `VERIFICACIONES` de `resultados.txt`). La solución propia coincide con `scipy.linalg.orthogonal_procrustes` (diferencia 0.00e+00), cumple ‖QᵀQ − I‖ ≈ 4e-16, su costo coincide con la fórmula ‖Xc‖² + ‖Yc‖² − 2Σσᵢ (diferencia ≈ 2e-13) y, con datos exactos, ‖Q − Q₀‖ ≈ 7e-16 mientras ‖Q − Q₀ᵀ‖ = 2.167 (no devuelve la transpuesta).
 
 Figuras (en `results/`):
 
@@ -198,19 +206,19 @@ Figuras (en `results/`):
 ![Casi colinealidad](results/fig3_casi_colineal.png)
 ![Puntos casi colineales](results/fig4_colineal_puntos.png)
 
-El desarrollo matemático completo, las tablas y la interpretación están en [`docs/avance_parcial.pdf`](docs/avance_parcial.pdf).
+El desarrollo matemático completo está en [`docs/desarrollo_matematico.md`](docs/desarrollo_matematico.md) y las tablas e interpretación en [`docs/Interpretacion resultados.md`](docs/Interpretacion%20resultados.md). En la interpretación los experimentos se llaman A, B y C; corresponden a los Exp. 2, 3 y 4 del código y de las figuras.
 
 ## Referencias
 
-Las fuentes están citadas en formato IEEE en `docs/`.
+Lista completa en formato IEEE en [`docs/fuentes.md`](docs/fuentes.md), con la parte del trabajo en que se usa cada una.
 
 ## Uso de inteligencia artificial
 
-Declaración completa en `docs/uso_ia.md` (herramienta, versión, finalidad, instrucciones relevantes, partes asistidas y cómo se verificó lo obtenido).
+Declaración completa en [`docs/uso_ia.md`](docs/uso_ia.md) (herramienta, versión, finalidad, instrucciones relevantes, partes asistidas y cómo se verificó lo obtenido).
 
 ## Contribuciones
 
-El registro de contribuciones de cada integrante está en `docs/`.
+El registro de contribuciones de cada integrante está en [`docs/contribuciones.md`](docs/contribuciones.md).
 
 ## Enlace al video
 
