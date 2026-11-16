@@ -2,6 +2,8 @@
 
 **Duración total:** 10 minutos
 
+**Documentos de apoyo:** las secciones citadas como "desarrollo, sección N" son de `docs/desarrollo_matematico.md`; las tablas y secciones de resultados son de `docs/Interpretacion resultados.md`. Los experimentos A, B y C corresponden a los Exp. 2, 3 y 4 del código y de las figuras.
+
 ## Resumen de tiempos e intervenciones
 
 
@@ -42,7 +44,7 @@
 
 - **Tiempo aproximado:** 1:00 – 2:30 (1 min 30 s)
 - **Presenta:** Yanira Sanchez
-- **Apoyo visual:** definiciones y desarrollo del inciso 2.a, línea por línea.
+- **Apoyo visual:** notación y desarrollo de las secciones 1 y 2 del desarrollo matemático (centrado y reducción a traza), línea por línea.
 
 **Secuencia de contenidos**
 1. Representación de los puntos por filas en X e Y.
@@ -71,7 +73,7 @@ Q debe ser ortogonal, es decir, Q transpuesta por Q igual a la identidad, para q
 
 - **Tiempo aproximado:** 2:30 – 4:00 (1 min 30 s)
 - **Presenta:** Alyssa Trujillo
-- **Apoyo visual:** incisos 2.b, 2.c y 2.d.
+- **Apoyo visual:** secciones 3, 4 y 5 del desarrollo matemático (solución por SVD, unicidad y rotaciones propias).
 
 **Secuencia de contenidos**
 1. Descomposición en valores singulares de M.
@@ -96,7 +98,7 @@ Q debe ser ortogonal, es decir, Q transpuesta por Q igual a la identidad, para q
 
 - **Tiempo aproximado:** 4:00 – 5:00 (1 min)
 - **Presenta:** Daniel Seas
-- **Apoyo visual:** tabla de la sección 3.1 y la función `procrustes()`.
+- **Apoyo visual:** tabla de correspondencia entre la consigna y el código (README, "Implementación y experimentos desarrollados", punto 1), tabla de la sección 7 del desarrollo matemático y la función `procrustes()`.
 
 **Secuencia de contenidos**
 1. Organización del código por secciones.
@@ -117,7 +119,7 @@ Q debe ser ortogonal, es decir, Q transpuesta por Q igual a la identidad, para q
 
 - **Tiempo aproximado:** 5:00 – 6:00 (1 min)
 - **Presenta:** Daniel Seas
-- **Apoyo visual:** tabla 4.1.
+- **Apoyo visual:** tabla 3.2 de la interpretación y `fig2_errores_vs_ruido.png` (panel izquierdo).
 
 **Secuencia de contenidos**
 1. Diseño del experimento.
@@ -129,9 +131,9 @@ Q debe ser ortogonal, es decir, Q transpuesta por Q igual a la identidad, para q
 
 > En el primer experimento tomamos treinta puntos, les aplicamos una rotación de cincuenta grados y una traslación conocidas, y agregamos niveles crecientes de ruido. El algoritmo debía resolver solo con rotaciones, en SO(2).
 >
-> Sin ruido, el algoritmo recupera la rotación exacta: el error es cero. Con ruido, el error crece de forma gradual: con uno por ciento de ruido, el ángulo se equivoca en cerca de siete centésimas de grado; con cinco por ciento, en casi un tercio de grado; y aun con veinte por ciento de ruido, el error apenas supera un grado.
+> Sin ruido, el algoritmo recupera la rotación exacta: el error es del orden de diez a la menos quince, es decir, precisión de máquina. Con ruido, el error crece de forma gradual y casi proporcional al ruido: con uno por ciento de ruido, el ángulo se equivoca en cerca de siete centésimas de grado; con cinco por ciento, en casi tres décimas de grado; y con veinte por ciento de ruido, en poco más de un grado.
 >
-> Algo importante es que medimos dos cosas por separado: el residuo de ajuste, que compara contra los datos con ruido, y el error de recuperación, que compara contra la transformación verdadera. El método resulta muy estable frente al ruido.
+> Algo importante es que medimos dos cosas por separado: el residuo de ajuste, que compara contra los datos con ruido, y el error de recuperación, que compara contra la transformación verdadera. Con una nube bien repartida, el método es estable frente a un ruido moderado; con cincuenta por ciento de ruido ya no es tan fiable, porque la dispersión entre corridas casi iguala al propio error.
 
 ---
 
@@ -139,7 +141,7 @@ Q debe ser ortogonal, es decir, Q transpuesta por Q igual a la identidad, para q
 
 - **Tiempo aproximado:** 6:00 – 6:30 (30 s)
 - **Presenta:** Daniel Seas
-- **Apoyo visual:** resultados del punto 4.2.
+- **Apoyo visual:** fila inferior de `fig1_puntos_antes_despues.png` (reflexión: antes, O(2) y SO(2)).
 
 **Secuencia de contenidos**
 1. Diseño del experimento con una reflexión verdadera.
@@ -147,7 +149,7 @@ Q debe ser ortogonal, es decir, Q transpuesta por Q igual a la identidad, para q
 
 **Intervención prevista**
 
-> En el segundo experimento la transformación verdadera es una reflexión, con determinante menos uno, y pusimos a competir dos versiones del algoritmo. Si permitimos cualquier matriz ortogonal, es decir, en O(2), el algoritmo siempre detecta correctamente la reflexión: devuelve determinante menos uno y alinea los puntos casi perfectamente. Pero si lo obligamos a usar solo rotaciones, en SO(2), no puede reproducir el espejo y el ajuste empeora.
+> En el segundo experimento la transformación verdadera es una reflexión, con determinante menos uno, y pusimos a competir dos versiones del algoritmo. Si permitimos cualquier matriz ortogonal, es decir, en O(2), el algoritmo siempre detecta correctamente la reflexión: devuelve determinante menos uno y alinea los puntos casi perfectamente. Pero si lo obligamos a usar solo rotaciones, en SO(2), no puede reproducir el espejo: devuelve una rotación válida, pero el ajuste empeora claramente y el error de la matriz Q queda fijo en dos.
 
 ---
 
@@ -155,15 +157,15 @@ Q debe ser ortogonal, es decir, Q transpuesta por Q igual a la identidad, para q
 
 - **Tiempo aproximado:** 6:30 – 7:00 (30 s)
 - **Presenta:** Clara Palma
-- **Apoyo visual:** resultados del punto 4.2.
+- **Apoyo visual:** tabla 4.2 de la interpretación.
 
 **Secuencia de contenidos**
 1. Verificación numérica del costo 4σ₂.
-2. Conexión con el inciso 2.d.
+2. Conexión con la sección 5 del desarrollo matemático.
 
 **Intervención prevista**
 
-> Lo interesante es cuánto empeora. La teoría del inciso 2.d dice que el costo debe subir exactamente cuatro veces sigma dos. Al calcular la diferencia entre el costo de SO(2) y el de O(2), coincidió con cuatro sigma dos con un margen de error del orden de diez a la menos trece, prácticamente cero. Así comprobamos numéricamente nuestra demostración.
+> Lo interesante es cuánto empeora. La teoría de la sección 5 del desarrollo dice que el costo debe subir exactamente cuatro veces sigma dos. Al calcular la diferencia entre el costo de SO(2) y el de O(2), coincidió con cuatro sigma dos con un margen de error del orden de diez a la menos trece, prácticamente cero. Así comprobamos numéricamente nuestra demostración.
 
 ---
 
@@ -171,7 +173,7 @@ Q debe ser ortogonal, es decir, Q transpuesta por Q igual a la identidad, para q
 
 - **Tiempo aproximado:** 7:00 – 8:00 (1 min)
 - **Presenta:** Clara Palma
-- **Apoyo visual:** tabla 4.3.
+- **Apoyo visual:** tabla 5.2 de la interpretación, `fig3_casi_colineal.png` y `fig4_colineal_puntos.png`.
 
 **Secuencia de contenidos**
 1. Diseño del experimento con nubes cada vez más delgadas.
@@ -182,7 +184,7 @@ Q debe ser ortogonal, es decir, Q transpuesta por Q igual a la identidad, para q
 
 > El tercer experimento es el más revelador. Mantuvimos el ruido fijo y fuimos reduciendo el ancho de la nube de puntos, que llamamos delta, hasta que casi formaron una línea recta.
 >
-> Lo primero que observamos es que el residuo de ajuste se mantiene prácticamente constante. El algoritmo parece funcionar igual de bien. Pero cuando miramos la transformación recuperada, la historia es otra. Con la nube normal, el error de la matriz Q es de apenas una milésima y nunca se equivoca. Pero cuando delta baja a tres milésimas, el error sube a cero coma veinte y el algoritmo elige la reflexión equivocada en el diez por ciento de las corridas. Y cuando los puntos casi forman una línea, con delta igual a una milésima, el error se dispara a uno coma cuarenta, y se equivoca en el setenta por ciento de las veces.
+> Lo primero que observamos es que el residuo de ajuste se mantiene prácticamente constante. El algoritmo parece funcionar igual de bien. Pero cuando miramos la transformación recuperada, la historia es otra. Si permitimos reflexiones, en O(2), con la nube normal el error de la matriz Q es de apenas una milésima y nunca se equivoca. Pero cuando delta baja a tres milésimas, el error sube a cero coma veinte y el algoritmo elige la reflexión equivocada en el diez por ciento de las corridas. Y cuando los puntos casi forman una línea, con delta igual a una milésima, el error se dispara a uno coma cuarenta, y se equivoca en el setenta por ciento de las veces. En cambio, si solo permitimos rotaciones, en SO(2), el error se queda en una milésima para todos los valores de delta.
 
 ---
 
@@ -190,21 +192,21 @@ Q debe ser ortogonal, es decir, Q transpuesta por Q igual a la identidad, para q
 
 - **Tiempo aproximado:** 8:00 – 9:00 (1 min)
 - **Presenta:** Clara Palma
-- **Apoyo visual:** interpretación del punto 4.3.
+- **Apoyo visual:** sección 5.3 de la interpretación (puntos 3 a 7) y tabla 5.2.
 
 **Secuencia de contenidos**
 1. Explicación del fenómeno con el valor singular σ₂.
-2. Conexión con el inciso 2.c: dos soluciones posibles en el plano.
-3. Conclusión principal: ajuste no es identificación.
-4. El cociente σ₂/σ₁ como diagnóstico.
+2. Conexión con la sección 4 del desarrollo: dos soluciones posibles en el plano.
+3. Por qué SO(2) sigue estable y O(2) no.
+4. Conclusión principal: ajuste no es identificación; σ₂(M) frente al ruido como diagnóstico.
 
 **Intervención prevista**
 
-> ¿Por qué pasa esto? Cuando los puntos casi forman una recta, el cociente entre sigma dos y sigma uno tiende a cero, y la matriz M se acerca a ser singular. Eso significa que los datos casi no dan información en la dirección perpendicular a la recta.
+> ¿Por qué pasa esto? Cuando la nube se aplana, el segundo valor singular de M baja de cuarenta y tres a casi diez a la menos cuatro: los datos casi no dan información en la dirección perpendicular a la recta.
 >
-> Como vimos en el inciso 2.c, cuando sigma dos es cero, en el plano existen exactamente dos soluciones con el mismo costo: la rotación correcta y una reflexión. Si sigma dos es casi cero, las dos opciones cuestan casi lo mismo, y el algoritmo ya no puede distinguirlas. Eso explica las reflexiones equivocadas.
+> Como vimos en la sección 4 del desarrollo, si sigma dos fuera cero habría dos soluciones con el mismo costo: la rotación correcta y una reflexión. Con sigma dos casi cero, sus costos difieren solo en cuatro sigma dos, y entonces el ruido decide cuál elige O(2). SO(2) no tiene este problema, porque al exigir determinante más uno descarta la reflexión; pero eso solo vale si sabemos que la verdad es una rotación.
 >
-> La conclusión principal de nuestro proyecto es que un buen residuo de ajuste no garantiza haber identificado correctamente la transformación. Por eso, el cociente entre sigma dos y sigma uno funciona como un diagnóstico indispensable: si se acerca a cero, el resultado deja de ser confiable, aunque el ajuste se vea bien.
+> La conclusión principal es que un buen residuo de ajuste no garantiza identificar la transformación. El diagnóstico no es el residuo, sino sigma dos de M frente al ruido: si son comparables y se admiten reflexiones, el resultado deja de ser confiable aunque el ajuste se vea bien.
 
 ---
 
@@ -223,6 +225,6 @@ Q debe ser ortogonal, es decir, Q transpuesta por Q igual a la identidad, para q
 
 > Para cerrar, queremos ser claros sobre los límites de lo que mostramos. Trabajamos con datos sintéticos en el plano, sin estimar cambios de escala, con ruido igual en todas las direcciones y sabiendo de antemano qué punto corresponde a cuál. En problemas reales esto no siempre se cumple: puede haber varias configuraciones a la vez, correspondencias desconocidas o puntos atípicos, que son extensiones que dejamos fuera de esta etapa.
 >
-> En resumen: demostramos que el problema de Procrustes se reduce a maximizar una traza y que la SVD lo resuelve con Q igual a U por V transpuesta; implementamos la solución y verificamos numéricamente cada resultado teórico, incluido el costo de cuatro sigma dos; y encontramos que la estabilidad depende del segundo valor singular.
+> En resumen: demostramos que el problema de Procrustes se reduce a maximizar una traza y que la SVD lo resuelve con Q igual a U por V transpuesta; implementamos la solución y verificamos numéricamente cada resultado teórico, incluido el costo de cuatro sigma dos; y encontramos que la estabilidad depende del segundo valor singular de M en relación con el ruido.
 >
 > Las referencias principales están en pantalla, y todo el código, los datos y los resultados están en nuestro repositorio de GitHub, cuyo enlace aparece aquí y en el README. Muchas gracias.
