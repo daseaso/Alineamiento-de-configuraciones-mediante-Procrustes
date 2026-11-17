@@ -34,7 +34,7 @@
 >
 > Imaginen que tenemos dos nubes de puntos, como las de la pantalla. A simple vista parecen distintas, pero en realidad representan la misma forma: una de ellas está rotada y trasladada respecto de la otra. Esto pasa mucho en la práctica, por ejemplo cuando dos cámaras observan el mismo objeto desde posiciones diferentes, o cuando comparamos formas medidas en distintos sistemas de referencia.
 >
-> Nuestra pregunta es doble. Primero: ¿cómo recuperar exactamente esa rotación y esa traslación a partir de los puntos correspondientes? Y segundo: ¿qué tan confiable es esa respuesta cuando los datos tienen ruido o cuando los puntos casi no nos dan información en alguna dirección?
+> Nuestra pregunta es doble. Primero: ¿cómo recuperar esa rotación y esa traslación a partir de los puntos correspondientes? Y segundo: ¿qué tan confiable es esa respuesta cuando los datos tienen ruido o cuando los puntos casi no nos dan información en alguna dirección?
 >
 > Nuestro objetivo es demostrar la solución con la descomposición en valores singulares, implementarla en Python y contrastar el error de ajuste con el error real de recuperación de la transformación.
 
@@ -57,15 +57,15 @@
 
 > Empecemos con el problema matemático. Guardamos los puntos en dos matrices, X e Y: cada fila es un punto del plano, y la fila i de X corresponde a la fila i de Y.
 >
-Suponemos que los datos cumplen Y igual a X por Q cero, más una traslación b cero, más un ruido E. No conocemos ni Q cero ni b cero: queremos estimarlos.
+> Suponemos que los datos cumplen Y igual a X por Q cero, más una traslación b cero, más un ruido E. No conocemos ni Q cero ni b cero: queremos estimarlos.
 >
-Q debe ser ortogonal, es decir, Q transpuesta por Q igual a la identidad, para que conserve las distancias y no deforme la figura. Su determinante solo puede ser más uno, una rotación, o menos uno, una reflexión. A todas ellas las llamamos O(2), y a las que solo rotan, SO(2).
+> Q debe ser ortogonal, es decir, Q transpuesta por Q igual a la identidad, para que conserve las distancias y no deforme la figura. Su determinante solo puede ser más uno, una rotación, o menos uno, una reflexión. A todas ellas las llamamos O(2), y a las que solo rotan, SO(2).
 >
-> El problema es encontrar la Q que haga a XQ lo más parecida posible a Y, minimizando la norma de Frobenius de XQ menos Y al cuadrado.
+> El problema es encontrar Q y b que hagan a XQ más b lo más parecida posible a Y, minimizando la norma de Frobenius de la diferencia al cuadrado. La traslación se elimina primero: si centramos ambas nubes restando su promedio, la b óptima sale de los centroides y solo queda encontrar la Q que acerque Xc Q a Yc.
 >
 > Para resolverlo, escribimos esa norma como una traza y la expandimos. Aparecen tres partes: la norma de X, la norma de Y y un término cruzado. El paso clave está en la norma de XQ: como Q por Q transpuesta es la identidad, la traza se simplifica y queda solo la norma de X. Es decir, rotar o reflejar no cambia el tamaño de la figura.
 >
-> Por eso, lo único que depende de Q es el término menos dos por la traza de Q transpuesta por M, donde M es X transpuesta por Y. Así que minimizar la distancia es lo mismo que maximizar esa traza.
+> Por eso, lo único que depende de Q es el término menos dos por la traza de Q transpuesta por M, donde M es Xc transpuesta por Yc, es decir, se calcula con las nubes centradas. Así que minimizar la distancia es lo mismo que maximizar esa traza.
 
 ---
 
@@ -225,6 +225,6 @@ Q debe ser ortogonal, es decir, Q transpuesta por Q igual a la identidad, para q
 
 > Para cerrar, queremos ser claros sobre los límites de lo que mostramos. Trabajamos con datos sintéticos en el plano, sin estimar cambios de escala, con ruido igual en todas las direcciones y sabiendo de antemano qué punto corresponde a cuál. En problemas reales esto no siempre se cumple: puede haber varias configuraciones a la vez, correspondencias desconocidas o puntos atípicos, que son extensiones que dejamos fuera de esta etapa.
 >
-> En resumen: demostramos que el problema de Procrustes se reduce a maximizar una traza y que la SVD lo resuelve con Q igual a U por V transpuesta; implementamos la solución y verificamos numéricamente cada resultado teórico, incluido el costo de cuatro sigma dos; y encontramos que la estabilidad depende del segundo valor singular de M en relación con el ruido.
+> En resumen: demostramos que el problema de Procrustes se reduce a maximizar una traza y que la SVD lo resuelve con Q igual a U por V transpuesta; implementamos la solución y verificamos numéricamente los resultados teóricos principales, como la fórmula del costo mínimo y el sobrecosto de cuatro sigma dos; y encontramos que la estabilidad depende del segundo valor singular de M en relación con el ruido.
 >
 > Las referencias principales están en pantalla, y todo el código, los datos y los resultados están en nuestro repositorio de GitHub, cuyo enlace aparece aquí y en el README. Muchas gracias.
