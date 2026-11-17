@@ -259,4 +259,4 @@ El registro de contribuciones de cada integrante está en [`docs/contribuciones.
 
 ## Enlace al video
 
-Video final: _(pendiente; se agregará en la entrega final)_. El guion está en [`docs/guion_video.md`](docs/guion_video.md).
+Video final: (https://drive.google.com/drive/folders/17qu24RIcvhA2Uk6y_0W_4ELpW3GTyAAa?usp=sharing). El guion está en [`docs/guion_video.md`](docs/guion_video.md).
