@@ -96,7 +96,7 @@ cd ..
 python src/simulacion_criterio_relativo.py
 ```
 
-El primer programa tarda unos segundos, imprime los resultados en pantalla y regenera en `results/`: `resultados.txt`, los archivos `.csv` y las figuras `fig1` a `fig4`. Como la semilla es fija (`SEED = 20261101`), el contenido debe ser idéntico al incluido en el repositorio, salvo diferencias de $`\sim 10^{-16}`$ en valores que valen cero. La simulación usa su propia semilla (`1`) y genera `simulacion_criterio_relativo.csv`.
+El primer programa tarda unos segundos, imprime los resultados en pantalla y regenera en `results/`: `resultados.txt`, los archivos `.csv` y las figuras `fig1` a `fig4`. Como la semilla es fija (`SEED = 20261101`), el contenido debe ser idéntico al incluido en el repositorio, salvo diferencias de redondeo del orden de $ 10^{-13} $. La simulación usa su propia semilla (`1`) y genera `simulacion_criterio_relativo.csv`.
 
 **Cómo comprobar que la ejecución es correcta** (valores esperados en [`results/resultados.txt`](results/resultados.txt)):
 
