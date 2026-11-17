@@ -186,7 +186,10 @@ Datos generados con una reflexión (det Q₀ = −1). Se resolvió en O(2) (admi
 3. **Forzar SO(2) cuando la verdad es reflexión da un error constante de ≈ 2.** No es casualidad: $`Q_{\mathrm{SO}}=UDV^\top=(UV^\top)R`$ con $`R=V\,\mathrm{diag}(1,-1)V^\top`$, una reflexión simétrica. Entonces
 
    ```math
-   \lVert Q_{\mathrm{SO}}-Q_0\rVert_F=\lVert R-I\rVert_F=\lVert V\,\mathrm{diag}(0,-2)V^\top\rVert_F=2,
+   \begin{aligned}
+   \|Q_{\mathrm{SO}}-Q_0\|_F &= \|R-I\|_F \\
+   &= \|V\,\mathrm{diag}(0,-2)\,V^\top\|_F = 2
+   \end{aligned}
    ```
 
    sin importar los datos. Entre las dos candidatas la distancia es exactamente 2; frente a la verdad es ≈ 2, porque $`Q_0`$ no coincide del todo con $`Q_{0}^{\mathrm{ref}}`$ (su error es de 10⁻³ a 10⁻¹ según el ruido, [tabla 4.2](#s4-2)). La misma cuenta explica por qué, en el Experimento C, cada confusión de O(2) cuesta ≈ 2.
