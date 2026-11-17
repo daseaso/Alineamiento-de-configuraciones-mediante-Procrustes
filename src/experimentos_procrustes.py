@@ -407,11 +407,17 @@ def verificaciones(X, Xc):
     R, escala = orthogonal_procrustes(Xc, Yc)  # SciPy no centra: se le pasan datos centrados
     P(f"||Q_propio - R_scipy||_F = {np.linalg.norm(Q - R):.2e}")
     P(f"scale SciPy = {escala:.10f} ; suma de valores singulares = {S.sum():.10f}")
-    P(f"||Q^T Q - I||_F = {np.linalg.norm(Q.T @ Q - np.eye(2)):.2e}")
+    P(f"||Q^T Q - I||_F = {np.linalg.norm(Q.T @ Q - np.eye(2)):.2e}")  
+    P(f"det(Q) = {np.linalg.det(Q):+.6f}  (ruido 0.1, O(2); verdad = rotacion)")
     c_directo = cost(Xc, Yc, Q)
     c_formula = np.linalg.norm(Xc) ** 2 + np.linalg.norm(Yc) ** 2 - 2 * S.sum()
     P(f"costo directo = {c_directo:.12f} ; formula = {c_formula:.12f}")
     P(f"|directo - formula| = {abs(c_directo - c_formula):.2e}")
+    # Convencion de filas: con datos exactos Q debe ser Q0 y NO su transpuesta
+    Yex = X @ Q0 + B0
+    Qex, bex, _ = procrustes(X, Yex, solo_rotacion=True)
+    P(f"Datos exactos: ||Q - Q0||_F = {np.linalg.norm(Qex - Q0):.2e} ; ||b - b0|| = {np.linalg.norm(bex - B0):.2e}")
+    P(f"Contraste:     ||Q - Q0^T||_F = {np.linalg.norm(Qex - Q0.T):.3f}  (distinto de 0: no se devuelve la transpuesta)")
 
 def main():
     # Punto 1
