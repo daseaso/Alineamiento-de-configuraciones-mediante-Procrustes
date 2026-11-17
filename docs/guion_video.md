@@ -2,7 +2,7 @@
 
 **Duración total:** 10 minutos
 
-**Documentos de apoyo:** las secciones citadas como "desarrollo, sección N" son de `docs/desarrollo_matematico.md`; las tablas y secciones de resultados son de `docs/Interpretacion resultados.md`. Los experimentos A, B y C corresponden a los Exp. 2, 3 y 4 del código y de las figuras.
+**Documentos de apoyo:** las secciones citadas como "desarrollo, sección N" son de [`desarrollo_matematico.md`](desarrollo_matematico.md); las tablas y secciones de resultados son de [`Interpretacion_resultados.md`](Interpretacion_resultados.md). Los experimentos A, B y C corresponden a los Exp. 2, 3 y 4 del código y de las figuras.
 
 ## Resumen de tiempos e intervenciones
 
@@ -192,21 +192,22 @@
 
 - **Tiempo aproximado:** 8:00 – 9:00 (1 min)
 - **Presenta:** Clara Palma
-- **Apoyo visual:** sección 5.3 de la interpretación (puntos 3 a 7) y tabla 5.2.
+- **Apoyo visual:** sección 5.3 de la interpretación (puntos 3 a 7), tabla 5.2 y tabla de la sección 5.4 (fracción de reflexiones erróneas según r).
 
 **Secuencia de contenidos**
 1. Explicación del fenómeno con el valor singular σ₂.
 2. Conexión con la sección 4 del desarrollo: dos soluciones posibles en el plano.
 3. Por qué SO(2) sigue estable y O(2) no.
-4. Conclusión principal: ajuste no es identificación; σ₂(M) frente al ruido como diagnóstico.
+4. Criterio relativo r = σ₂(Xc)/s: espesor de la nube comparado con el ruido (simulación auxiliar, sección 5.4).
+5. Conclusión principal: ajuste no es identificación; r como diagnóstico.
 
 **Intervención prevista**
 
-> ¿Por qué pasa esto? Cuando la nube se aplana, el segundo valor singular de M baja de cuarenta y tres a casi diez a la menos cuatro: los datos casi no dan información en la dirección perpendicular a la recta.
+> ¿Por qué pasa esto? Cuando la nube se aplana, el segundo valor singular de M baja de cuarenta y tres a casi diez a la menos cuatro. Como vimos en la sección 4 del desarrollo, si sigma dos fuera cero habría dos soluciones con el mismo costo: la rotación y una reflexión. Con sigma dos casi cero, el ruido decide cuál elige O(2). SO(2) no tiene este problema, porque descarta la reflexión, pero solo vale si sabemos que la verdad es una rotación.
 >
-> Como vimos en la sección 4 del desarrollo, si sigma dos fuera cero habría dos soluciones con el mismo costo: la rotación correcta y una reflexión. Con sigma dos casi cero, sus costos difieren solo en cuatro sigma dos, y entonces el ruido decide cuál elige O(2). SO(2) no tiene este problema, porque al exigir determinante más uno descarta la reflexión; pero eso solo vale si sabemos que la verdad es una rotación.
+> ¿Importa más el espesor o el ruido? Una simulación auxiliar que varía ambos muestra que decide r: el espesor de la nube medido en unidades de ruido. Con r mayor que tres, O(2) casi nunca se equivoca; con r cerca de uno, falla entre diez y veinte por ciento de las veces; y con r menor que cero coma tres, elige casi al azar.
 >
-> La conclusión principal es que un buen residuo de ajuste no garantiza identificar la transformación. El diagnóstico no es el residuo, sino sigma dos de M frente al ruido: si son comparables y se admiten reflexiones, el resultado deja de ser confiable aunque el ajuste se vea bien.
+> La conclusión principal es que un buen residuo de ajuste no garantiza identificar la transformación: el diagnóstico es r, no el residuo.
 
 ---
 
@@ -225,6 +226,6 @@
 
 > Para cerrar, queremos ser claros sobre los límites de lo que mostramos. Trabajamos con datos sintéticos en el plano, sin estimar cambios de escala, con ruido igual en todas las direcciones y sabiendo de antemano qué punto corresponde a cuál. En problemas reales esto no siempre se cumple: puede haber varias configuraciones a la vez, correspondencias desconocidas o puntos atípicos, que son extensiones que dejamos fuera de esta etapa.
 >
-> En resumen: demostramos que el problema de Procrustes se reduce a maximizar una traza y que la SVD lo resuelve con Q igual a U por V transpuesta; implementamos la solución y verificamos numéricamente los resultados teóricos principales, como la fórmula del costo mínimo y el sobrecosto de cuatro sigma dos; y encontramos que la estabilidad depende del segundo valor singular de M en relación con el ruido.
+> En resumen: demostramos que el problema de Procrustes se reduce a maximizar una traza y que la SVD lo resuelve con Q igual a U por V transpuesta; implementamos la solución y verificamos numéricamente los resultados teóricos principales, como la fórmula del costo mínimo y el sobrecosto de cuatro sigma dos; y encontramos que, con reflexiones permitidas, la confiabilidad depende de r, el espesor de la nube comparado con el ruido.
 >
 > Las referencias principales están en pantalla, y todo el código, los datos y los resultados están en nuestro repositorio de GitHub, cuyo enlace aparece aquí y en el README. Muchas gracias.
