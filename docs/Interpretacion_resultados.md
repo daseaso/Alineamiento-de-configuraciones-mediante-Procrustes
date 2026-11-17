@@ -8,7 +8,7 @@
 
 **Integrantes:** Clara Jimena Palma Dolmos, Yanira Thais Sanchez Cárdenas, Daniel Alejandro Seas Ordinola, Alyssa Antuanette Trujillo Cruzado
 
-> Todas las cifras de este documento salen de ejecutar `src/experimentos_procrustes.py` (semilla fija `SEED = 20261101`) y `src/simulacion_criterio_relativo.py` (semilla `1`), y coinciden con [`results/resultados.txt`](../results/resultados.txt), [`results/simulacion_criterio_relativo.csv`](../results/simulacion_criterio_relativo.csv) y los demás CSV de [`results/`](../results/). La teoría que se cita está en el [desarrollo matemático](desarrollo_matematico.md).
+> Todas las cifras de este documento salen de ejecutar [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py) (semilla fija `SEED = 20261101`) y [`src/simulacion_criterio_relativo.py`](../src/simulacion_criterio_relativo.py) (semilla `1`), y coinciden con [`results/resultados.txt`](../results/resultados.txt), [`results/simulacion_criterio_relativo.csv`](../results/simulacion_criterio_relativo.csv) y los demás CSV de [`results/`](../results/). La teoría que se cita está en el [desarrollo matemático](desarrollo_matematico.md).
 
 ## Índice
 
@@ -44,8 +44,8 @@ Hay dos preguntas distintas:
 - **Transformación verdadera:** rotación Q₀ de 50° y traslación b₀ = (2.5, −1.5). En el Experimento B la verdad es la reflexión Q₀·diag(1, −1).
 - **Ruido:** matriz E gaussiana normalizada para que $`\lVert E\rVert_F = \varepsilon\,\lVert X_c\rVert_F`$. Así ε es un ruido *relativo*: ε = 0.10 significa que el ruido tiene el 10 % de la norma de la nube centrada.
 - **Repeticiones:** 20 por nivel en los experimentos A, B y C, cada una con su propio generador aleatorio (reproducible por separado), y 400 por combinación en la simulación auxiliar ([§5.4](#s5-4)). Se reporta media ± desviación estándar.
-- **Algoritmo:** se centran X e Y, se calcula la SVD de $`M = X_c^\top Y_c`$ y se toma $`Q = UV^\top`$ (en O(2)) [[1]](fuentes.md#ref1) o $`Q = UDV^\top`$ con $`D=\mathrm{diag}(1, \det(UV^\top))`$ (en SO(2)), que es el algoritmo de Kabsch–Umeyama [[2]](fuentes.md#ref2), [[3]](fuentes.md#ref3). La traslación es $`b = \bar y - Q^\top \bar x`$. Detalles en el [desarrollo matemático](desarrollo_matematico.md#sec7).
-- **Implementación:** Python con NumPy [[5]](fuentes.md#ref5) para el álgebra lineal y SciPy [[6]](fuentes.md#ref6) solo para la comparación de la [sección 2](#s2).
+- **Algoritmo:** se centran X e Y, se calcula la SVD de $`M = X_c^\top Y_c`$ y se toma $`Q = UV^\top`$ (en O(2)) [[1]](fuentes.md#ref1) o $`Q = UDV^\top`$ con $`D=\mathrm{diag}(1, \det(UV^\top))`$ (en SO(2)), que es el algoritmo de Kabsch–Umeyama [[2]](fuentes.md#ref2), [[3]](fuentes.md#ref3). La traslación es $`b = \bar y - Q^\top \bar x`$. Está implementado en la función `procrustes()` de [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py); detalles en el [desarrollo matemático](desarrollo_matematico.md#sec7).
+- **Implementación:** Python con NumPy [[5]](fuentes.md#ref5) para el álgebra lineal y SciPy [[6]](fuentes.md#ref6) solo para la comparación de la [sección 2](#s2). El código está en [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py) (experimentos A, B y C, verificaciones y figuras) y [`src/simulacion_criterio_relativo.py`](../src/simulacion_criterio_relativo.py) (simulación auxiliar).
 
 **Hipótesis que se ponen a prueba**
 
@@ -67,13 +67,15 @@ Hay dos preguntas distintas:
 | σ₂(M), 4σ₂(M) | Segundo valor singular de M y sobrecosto de prohibir reflexiones | Información de los datos sobre la dirección débil |
 | σ₂/σ₁ de X | Cociente de valores singulares de la nube centrada | Aplanamiento de la nube (0 = puntos en una recta) |
 
+Las métricas de ajuste y de recuperación se calculan en la función `metrics()` de [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py).
+
 ---
 
 <a id="s2"></a>
 
 ## 2. Verificaciones numéricas de la implementación
 
-La función `verificaciones()` comprueba que el código resuelve el problema que dice resolver (salida completa en [`results/resultados.txt`](../results/resultados.txt)):
+La función `verificaciones()` de [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py) comprueba que el código resuelve el problema que dice resolver (salida completa en [`results/resultados.txt`](../results/resultados.txt)):
 
 | Comprobación | Resultado | Qué demuestra |
 |---|---|---|
@@ -97,7 +99,7 @@ La función `verificaciones()` comprueba que el código resuelve el problema que
 
 ### 3.1 Qué se hizo
 
-Se giró la nube 50° y se trasladó, se añadió ruido de nivel ε entre 0 y 0.5 y se resolvió sobre SO(2), con 20 repeticiones por nivel. Objetivo: medir cómo crece el error con el ruido (hipótesis H1).
+Se giró la nube 50° y se trasladó, se añadió ruido de nivel ε entre 0 y 0.5 y se resolvió sobre SO(2), con 20 repeticiones por nivel. Objetivo: medir cómo crece el error con el ruido (hipótesis H1). Código: función `exp2_rotacion()` de [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py).
 
 ### 3.2 Resultados
 
@@ -155,7 +157,7 @@ Se giró la nube 50° y se trasladó, se añadió ruido de nivel ε entre 0 y 0.
 
 ### 4.1 Qué se hizo
 
-Datos generados con una reflexión (det Q₀ = −1). Se resolvió en O(2) (admite reflexiones) y en SO(2) (no). Se comparó el sobrecosto de prohibir reflexiones con la predicción 4σ₂(M) (hipótesis **H3**). 7 niveles de ruido × 20 repeticiones = 140 corridas.
+Datos generados con una reflexión (det Q₀ = −1). Se resolvió en O(2) (admite reflexiones) y en SO(2) (no). Se comparó el sobrecosto de prohibir reflexiones con la predicción 4σ₂(M) (hipótesis **H3**). 7 niveles de ruido × 20 repeticiones = 140 corridas. Código: función `exp3_reflexion()` de [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py).
 
 <a id="s4-2"></a>
 
@@ -201,7 +203,7 @@ Datos generados con una reflexión (det Q₀ = −1). Se resolvió en O(2) (admi
 
 ### 5.1 Qué se hizo
 
-Se aplanó la nube: la segunda coordenada se multiplicó por un espesor δ que bajó de 1 a 0.001, con las mismas posiciones sobre la recta y ε = 0.01 fijo. La verdad es una rotación de 50° (det Q₀ = +1). Se resolvió en SO(2) y O(2) y se midió el error de recuperación, el residuo y la fracción de corridas en que O(2) elige una reflexión (hipótesis **H2**).
+Se aplanó la nube: la segunda coordenada se multiplicó por un espesor δ que bajó de 1 a 0.001, con las mismas posiciones sobre la recta y ε = 0.01 fijo. La verdad es una rotación de 50° (det Q₀ = +1). Se resolvió en SO(2) y O(2) y se midió el error de recuperación, el residuo y la fracción de corridas en que O(2) elige una reflexión (hipótesis **H2**). Código: funciones `make_collinear_base()` y `exp4_colineal()` de [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py).
 
 ### 5.2 Resultados
 
@@ -245,7 +247,7 @@ Se aplanó la nube: la segunda coordenada se multiplicó por un espesor δ que b
 
 ### 5.4 Simulación auxiliar: criterio relativo r
 
-**Qué se hizo.** El Experimento C varía solo δ con ε fijo, así que no permite saber si lo que importa es el espesor de la nube, el ruido o la relación entre ambos. La simulación `src/simulacion_criterio_relativo.py` usa la misma nube base y recorre **4 niveles de ruido (ε = 0.005, 0.01, 0.02, 0.05) × 9 espesores (δ de 0.0003 a 0.1)**, con **400 repeticiones** por combinación (semilla 1). Para cada combinación calcula la fracción de corridas en que O(2) devuelve una reflexión y el cociente
+**Qué se hizo.** El Experimento C varía solo δ con ε fijo, así que no permite saber si lo que importa es el espesor de la nube, el ruido o la relación entre ambos. La simulación [`src/simulacion_criterio_relativo.py`](../src/simulacion_criterio_relativo.py) importa la nube base y la función `procrustes()` de [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py) y recorre **4 niveles de ruido (ε = 0.005, 0.01, 0.02, 0.05) × 9 espesores (δ de 0.0003 a 0.1)**, con **400 repeticiones** por combinación (semilla 1). Para cada combinación calcula la fracción de corridas en que O(2) devuelve una reflexión y el cociente
 
 ```math
 r=\frac{\sigma_2(M_{\mathrm{limpia}})}{s\,\sigma_2(X_c)}=\frac{\sigma_2(X_c)}{s},\qquad s=\frac{\varepsilon\lVert X_c\rVert_F}{\sqrt{2N}},
@@ -342,6 +344,13 @@ cd ..
 python src/simulacion_criterio_relativo.py        # Simulación auxiliar (400 repeticiones) -> results/
 ```
 
+Scripts utilizados:
+
+| Script | Contenido |
+|---|---|
+| [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py) | Núcleo `procrustes()`, experimentos A, B y C, `verificaciones()` y figuras 1–4 |
+| [`src/simulacion_criterio_relativo.py`](../src/simulacion_criterio_relativo.py) | Simulación auxiliar del criterio r (importa el módulo anterior; debe estar en la misma carpeta) |
+
 Los archivos generados están en [`results/`](../results/):
 
 | Archivo | Contenido |
@@ -366,7 +375,6 @@ La lista completa, con la numeración única del repositorio, está en [`fuentes
 ---
 
 *Nota sobre la elaboración:* este documento se redactó con asistencia de IA (Claude, Claude Sonnet 5.5, de Anthropic) a partir del avance y del código del grupo; las cifras se contrastaron reejecutando el script y las estimaciones de [§3.3](#s3) con cálculos adicionales. El grupo revisó el contenido y asume su responsabilidad. Declaración completa: [`uso_ia.md`](uso_ia.md).
-
 ---
 
 *Nota sobre la elaboración:* este documento se redactó con asistencia de IA (Claude, Claude Sonnet 5.5, de Anthropic) a partir del avance y del código del grupo; las cifras se contrastaron reejecutando el script y las estimaciones de [§3.3](#s3) con cálculos adicionales. El grupo revisó el contenido y asume su responsabilidad. Declaración completa: [`uso_ia.md`](uso_ia.md).
