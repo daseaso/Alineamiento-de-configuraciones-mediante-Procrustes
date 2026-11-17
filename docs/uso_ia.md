@@ -11,7 +11,7 @@ El grupo usó herramientas de IA generativa como apoyo en las partes indicadas a
 | # | Herramienta y versión | Finalidad | Parte del trabajo |
 |---|---|---|---|
 | 1 | Claude (Anthropic), modelo Claude Sonnet 5.5 | Apoyo en la redacción de la interpretación de resultados a partir del avance y del código del grupo | [`docs/Interpretacion_resultados.md`](Interpretacion_resultados.md) |
-| 2 | Claude (Anthropic), modelo Claude Opus 5.5, 16/11/2026 | Revisión de coherencia del repositorio antes de la entrega y apoyo en las correcciones | [`docs/desarrollo_matematico.md`](desarrollo_matematico.md),`README.md`, [`docs/fuentes.md`](fuentes.md), [`docs/guion_video.md`](guion_video.md), [`docs/contribuciones.md`](contribuciones.md), [`docs/Interpretacion_resultados.md`](Interpretacion_resultados.md), función `verificaciones()` de [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py) y carpeta `results/` |
+| 2 | Claude (Anthropic), modelo Claude Opus 5.5, 16/11/2026 | Revisión de coherencia del repositorio antes de la entrega y apoyo en las correcciones | [`docs/desarrollo_matematico.md`](desarrollo_matematico.md), [`README.md`](../README.md), [`docs/fuentes.md`](fuentes.md), [`docs/guion_video.md`](guion_video.md), [`docs/contribuciones.md`](contribuciones.md), [`docs/Interpretacion_resultados.md`](Interpretacion_resultados.md), función `verificaciones()` de [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py) y carpeta `results/` |
 
 ## 2. Instrucciones (prompts) relevantes
 
