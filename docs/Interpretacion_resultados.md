@@ -8,7 +8,7 @@
 
 **Integrantes:** Clara Jimena Palma Dolmos, Yanira Thais Sanchez Cárdenas, Daniel Alejandro Seas Ordinola, Alyssa Antuanette Trujillo Cruzado
 
-> Todas las cifras de este documento salen de ejecutar `src/experimentos_procrustes.py` (semilla fija `SEED = 20261101`) y `src/simulacion_criterio_relativo.py` (semilla `1`), y coinciden con `results/resultados.txt`, `results/simulacion_criterio_relativo.csv` y los demás CSV de `results/`. La teoría que se cita está en el [desarrollo matemático](desarrollo_matematico.md).
+> Todas las cifras de este documento salen de ejecutar `src/experimentos_procrustes.py` (semilla fija `SEED = 20261101`) y `src/simulacion_criterio_relativo.py` (semilla `1`), y coinciden con [`results/resultados.txt`](../results/resultados.txt), [`results/simulacion_criterio_relativo.csv`](../results/simulacion_criterio_relativo.csv) y los demás CSV de [`results/`](../results/). La teoría que se cita está en el [desarrollo matemático](desarrollo_matematico.md).
 
 ## Índice
 
@@ -40,7 +40,7 @@ Hay dos preguntas distintas:
 
 ### 1.1 Diseño común de los experimentos
 
-- **Datos sintéticos:** N = 30 puntos en el plano, con semilla fija (`SEED = 20261101`). Como Y se construye con una transformación conocida, se puede medir cuánto se equivoca el método.
+- **Datos sintéticos:** N = 30 puntos en el plano, con semilla fija (`SEED = 20261101`); la nube base se guarda en [`results/puntos_X.csv`](../results/puntos_X.csv). Como Y se construye con una transformación conocida, se puede medir cuánto se equivoca el método.
 - **Transformación verdadera:** rotación Q₀ de 50° y traslación b₀ = (2.5, −1.5). En el Experimento B la verdad es la reflexión Q₀·diag(1, −1).
 - **Ruido:** matriz E gaussiana normalizada para que $`\lVert E\rVert_F = \varepsilon\,\lVert X_c\rVert_F`$. Así ε es un ruido *relativo*: ε = 0.10 significa que el ruido tiene el 10 % de la norma de la nube centrada.
 - **Repeticiones:** 20 por nivel en los experimentos A, B y C, cada una con su propio generador aleatorio (reproducible por separado), y 400 por combinación en la simulación auxiliar ([§5.4](#s5-4)). Se reporta media ± desviación estándar.
@@ -73,7 +73,7 @@ Hay dos preguntas distintas:
 
 ## 2. Verificaciones numéricas de la implementación
 
-La función `verificaciones()` comprueba que el código resuelve el problema que dice resolver:
+La función `verificaciones()` comprueba que el código resuelve el problema que dice resolver (salida completa en [`results/resultados.txt`](../results/resultados.txt)):
 
 | Comprobación | Resultado | Qué demuestra |
 |---|---|---|
@@ -111,10 +111,13 @@ Se giró la nube 50° y se trasladó, se añadió ruido de nivel ε entre 0 y 0.
 | 0.20 | 1.079 ± 0.801 | 0.144 | 0.9449 | 0.1825 |
 | 0.50 | 2.414 ± 2.270 | 0.456 | 2.341 | 0.519 |
 
-![Puntos antes y después del alineamiento](../results/fig1_puntos_antes_despues.png)
-![Errores frente al ruido (Exp. 2 y 3)](../results/fig2_errores_vs_ruido.png)
+**Datos:** resumen por nivel de ruido en [`exp2_rotacion_resumen.csv`](../results/exp2_rotacion_resumen.csv) y corridas individuales en [`exp2_rotacion_corridas.csv`](../results/exp2_rotacion_corridas.csv).
 
-*Panel izquierdo de la segunda figura: los errores del Experimento A crecen en paralelo con el ruido.*
+![Puntos antes y después del alineamiento](../results/fig1_puntos_antes_despues.png)
+*Figura 1 ([`fig1_puntos_antes_despues.png`](../results/fig1_puntos_antes_despues.png)): nube antes y después del alineamiento.*
+
+![Errores frente al ruido (Exp. 2 y 3)](../results/fig2_errores_vs_ruido.png)
+*Figura 2 ([`fig2_errores_vs_ruido.png`](../results/fig2_errores_vs_ruido.png)), panel izquierdo: los errores del Experimento A crecen en paralelo con el ruido.*
 
 ### 3.3 Interpretación
 
@@ -154,6 +157,8 @@ Se giró la nube 50° y se trasladó, se añadió ruido de nivel ε entre 0 y 0.
 
 Datos generados con una reflexión (det Q₀ = −1). Se resolvió en O(2) (admite reflexiones) y en SO(2) (no). Se comparó el sobrecosto de prohibir reflexiones con la predicción 4σ₂(M) (hipótesis **H3**). 7 niveles de ruido × 20 repeticiones = 140 corridas.
 
+<a id="s4-2"></a>
+
 ### 4.2 Resultados
 
 | ε | det Q (O(2)) | costo_SO2 − costo_O2 | 4σ₂(M) | Máx. error de la igualdad | `‖Q−Q₀ref‖` O(2) | `‖Q−Q₀ref‖` SO(2) |
@@ -166,7 +171,9 @@ Datos generados con una reflexión (det Q₀ = −1). Se resolvió en O(2) (admi
 | 0.20 | −1 | 263.148 | 263.148 | 2.8e-13 | 3.5e-2 | 2.00 |
 | 0.50 | −1 | 280.626 | 280.626 | 2.8e-13 | 7.5e-2 | 2.00 |
 
-*Panel derecho de `fig2_errores_vs_ruido.png`: O(2) crece con el ruido; SO(2) se mantiene en 2.*
+**Datos:** [`exp3_reflexion_resumen.csv`](../results/exp3_reflexion_resumen.csv) y [`exp3_reflexion_corridas.csv`](../results/exp3_reflexion_corridas.csv).
+
+*Panel derecho de [`fig2_errores_vs_ruido.png`](../results/fig2_errores_vs_ruido.png): O(2) crece con el ruido; SO(2) se mantiene en 2.*
 
 <a id="s4-3"></a>
 
@@ -180,7 +187,7 @@ Datos generados con una reflexión (det Q₀ = −1). Se resolvió en O(2) (admi
    \lVert Q_{\mathrm{SO}}-Q_0\rVert_F=\lVert R-I\rVert_F=\lVert V\,\mathrm{diag}(0,-2)V^\top\rVert_F=2,
    ```
 
-   sin importar los datos. Entre las dos candidatas la distancia es exactamente 2; frente a la verdad es ≈ 2, porque $`Q_0`$ no coincide del todo con $`Q_{0}^{\mathrm{ref}}`$ (su error es de 10⁻³ a 10⁻¹ según el ruido, [tabla 4.2](#s4)). La misma cuenta explica por qué, en el Experimento C, cada confusión de O(2) cuesta ≈ 2.
+   sin importar los datos. Entre las dos candidatas la distancia es exactamente 2; frente a la verdad es ≈ 2, porque $`Q_0`$ no coincide del todo con $`Q_{0}^{\mathrm{ref}}`$ (su error es de 10⁻³ a 10⁻¹ según el ruido, [tabla 4.2](#s4-2)). La misma cuenta explica por qué, en el Experimento C, cada confusión de O(2) cuesta ≈ 2.
 4. **El error de O(2) crece con el ruido como en el Experimento A:** de 1.5e-3 (ε = 0.01) a 7.5e-2 (ε = 0.5), 50 veces más error para 50 veces más ruido.
 5. **Significado práctico.** Si el problema prohíbe reflexiones pero los datos vienen de una, SO(2) no falla visiblemente: devuelve una rotación razonable. La alarma es el sobrecosto de 4σ₂ respecto de O(2).
 
@@ -210,10 +217,15 @@ Se aplanó la nube: la segunda coordenada se multiplicó por un espesor δ que b
 
 *σ₂(M) es el promedio sobre las corridas con ruido.*
 
+**Datos:** [`exp4_colineal_resumen.csv`](../results/exp4_colineal_resumen.csv) y [`exp4_colineal_corridas.csv`](../results/exp4_colineal_corridas.csv).
+
 > **Cómo leer los porcentajes.** Con 20 repeticiones por fila, cada corrida pesa 5 puntos porcentuales y la incertidumbre es grande: el **10 %** de δ = 0.003 son 2 de 20 corridas y el **70 %** de δ = 0.001 son **14 de 20**. Con 20 corridas, el intervalo de confianza al 95 % del 70 % va aproximadamente de 48 % a 86 %. La simulación auxiliar ([§5.4](#s5-4)), con 400 repeticiones para estas mismas configuraciones, da **≈ 19 %** (δ = 0.003) y **≈ 42 %** (δ = 0.001); esas son las estimaciones estables. La conclusión no cambia: el error es muy frecuente y el residuo es constante.
 
 ![Error de recuperación, residuo y fracción de reflexiones](../results/fig3_casi_colineal.png)
+*Figura 3 ([`fig3_casi_colineal.png`](../results/fig3_casi_colineal.png)): error de recuperación, residuo y fracción de reflexiones.*
+
 ![Nube casi colineal antes y después](../results/fig4_colineal_puntos.png)
+*Figura 4 ([`fig4_colineal_puntos.png`](../results/fig4_colineal_puntos.png)): nube casi colineal antes y después.*
 
 <a id="s5-3"></a>
 
@@ -221,7 +233,7 @@ Se aplanó la nube: la segunda coordenada se multiplicó por un espesor δ que b
 
 1. **Qué le pasa a los datos.** Al aplanar, σ₂/σ₁ de X baja de 0.37 a 0.0004 y σ₂(M) de 43 a ≈ 10⁻⁴: los datos casi no contienen información perpendicular a la recta. (Para δ muy pequeño, el σ₂(M) de la tabla incluye una parte aportada por el propio ruido.)
 2. **El ajuste no se degrada.** El RMSE de ajuste se mantiene en 0.032 y el RMSE vs señal limpia en ≈ 0.0065 para todo δ. Los puntos transformados siempre caen sobre los datos. Mirando solo el residuo, el caso más aplanado parece tan bueno como el más favorable.
-3. **SO(2) permanece estable.** `‖Q − Q₀‖` se queda en torno a 10⁻³ para todo δ y coincide con la perturbación `‖Q(Y) − Q(Y limpia)‖` (figura 3). Cuando la verdad es una rotación (det(UVᵀ) = +1), el costo crece al alejarse del óptimo como $`(\sigma_1+\sigma_2)\theta^2`$; como σ₁ es grande, el ángulo queda bien determinado por la dirección de la recta aunque σ₂ sea casi cero.
+3. **SO(2) permanece estable.** `‖Q − Q₀‖` se queda en torno a 10⁻³ para todo δ y coincide con la perturbación `‖Q(Y) − Q(Y limpia)‖` ([figura 3](../results/fig3_casi_colineal.png)). Cuando la verdad es una rotación (det(UVᵀ) = +1), el costo crece al alejarse del óptimo como $`(\sigma_1+\sigma_2)\theta^2`$; como σ₁ es grande, el ángulo queda bien determinado por la dirección de la recta aunque σ₂ sea casi cero.
 4. **En O(2) el problema es elegir entre dos candidatas.** Una rotación (det = +1) y una reflexión (det = −1) casi igual de buenas, con costos mínimos que difieren exactamente en 4σ₂(M). Para puntos sobre una recta, una rotación y la reflexión respecto de esa recta los mueven casi igual; solo las distingue la minúscula componente perpendicular. Cuando 4σ₂(M) es comparable con la perturbación que el ruido induce en esa componente, **el ruido decide** cuál devuelve el algoritmo.
 5. **Cada confusión cuesta ≈ 2** ([sección 4.3](#s4-3)). Por eso el error medio es ≈ 2 × fracción de reflexiones: 2 × 0.10 = 0.20 (δ = 0.003) y 2 × 0.70 = 1.40 (δ = 0.001). Es una comprobación de consistencia de la tabla.
 6. **Única en teoría, ambigua en la práctica.** Mientras σ₂(M) > 0 la solución en O(2) es única ([desarrollo, sección 4](desarrollo_matematico.md#sec4); [[1]](fuentes.md#ref1); Cor. 5.2 de [[8]](fuentes.md#ref8)), pero con σ₂(M) ≈ 10⁻⁴ una perturbación pequeña basta para pasar de una candidata a la otra. Es el sentido de "direcciones poco observables" del planteamiento.
@@ -241,7 +253,7 @@ r=\frac{\sigma_2(M_{\mathrm{limpia}})}{s\,\sigma_2(X_c)}=\frac{\sigma_2(X_c)}{s}
 
 que mide el espesor de la nube en la dirección débil en unidades de ruido. (Sin ruido, $`M=X_c^\top X_cQ_0`$, por lo que $`\sigma_2(M)=\sigma_2(X_c)^2`$; el ruido aporta a M, en la dirección débil, una perturbación del orden de $`\sigma_2(X_c)\,s`$. El cociente compara señal y perturbación.)
 
-**Resultados** (`results/simulacion_criterio_relativo.csv`):
+**Resultados** ([`results/simulacion_criterio_relativo.csv`](../results/simulacion_criterio_relativo.csv)):
 
 | r | Fracción de reflexiones erróneas en O(2) |
 |---|---|
@@ -330,13 +342,30 @@ cd ..
 python src/simulacion_criterio_relativo.py        # Simulación auxiliar (400 repeticiones) -> results/
 ```
 
-Los archivos generados están en `results/`: `resultados.txt` (todas las tablas y verificaciones), `exp2_*`, `exp3_*`, `exp4_*` (CSV de resumen y de corridas), `simulacion_criterio_relativo.csv`, `puntos_X.csv` y `fig1`–`fig4`.
+Los archivos generados están en [`results/`](../results/):
+
+| Archivo | Contenido |
+|---|---|
+| [`resultados.txt`](../results/resultados.txt) | Todas las tablas y verificaciones |
+| [`exp2_rotacion_resumen.csv`](../results/exp2_rotacion_resumen.csv), [`exp2_rotacion_corridas.csv`](../results/exp2_rotacion_corridas.csv) | Experimento A: resumen y corridas |
+| [`exp3_reflexion_resumen.csv`](../results/exp3_reflexion_resumen.csv), [`exp3_reflexion_corridas.csv`](../results/exp3_reflexion_corridas.csv) | Experimento B: resumen y corridas |
+| [`exp4_colineal_resumen.csv`](../results/exp4_colineal_resumen.csv), [`exp4_colineal_corridas.csv`](../results/exp4_colineal_corridas.csv) | Experimento C: resumen y corridas |
+| [`simulacion_criterio_relativo.csv`](../results/simulacion_criterio_relativo.csv) | Simulación auxiliar del criterio r |
+| [`puntos_X.csv`](../results/puntos_X.csv) | Nube base de puntos |
+| [`fig1_puntos_antes_despues.png`](../results/fig1_puntos_antes_despues.png) | Figura 1 |
+| [`fig2_errores_vs_ruido.png`](../results/fig2_errores_vs_ruido.png) | Figura 2 |
+| [`fig3_casi_colineal.png`](../results/fig3_casi_colineal.png) | Figura 3 |
+| [`fig4_colineal_puntos.png`](../results/fig4_colineal_puntos.png) | Figura 4 |
 
 ---
 
 ## Referencias
 
 La lista completa, con la numeración única del repositorio, está en [`fuentes.md`](fuentes.md): [[1]](fuentes.md#ref1), [[2]](fuentes.md#ref2), [[3]](fuentes.md#ref3), [[4]](fuentes.md#ref4), [[5]](fuentes.md#ref5), [[6]](fuentes.md#ref6), [[8]](fuentes.md#ref8).
+
+---
+
+*Nota sobre la elaboración:* este documento se redactó con asistencia de IA (Claude, Claude Sonnet 5.5, de Anthropic) a partir del avance y del código del grupo; las cifras se contrastaron reejecutando el script y las estimaciones de [§3.3](#s3) con cálculos adicionales. El grupo revisó el contenido y asume su responsabilidad. Declaración completa: [`uso_ia.md`](uso_ia.md).
 
 ---
 
