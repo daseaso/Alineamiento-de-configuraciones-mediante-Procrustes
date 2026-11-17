@@ -76,7 +76,7 @@ pip install -r requirements.txt
 
 ```
 cd results
-python ../src/procrustes_experimentos.py
+python ../src/experimentos_procrustes.py
 ```
 
 (En Windows PowerShell, escribir cada comando en su propia línea.)
