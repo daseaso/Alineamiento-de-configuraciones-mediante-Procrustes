@@ -20,6 +20,7 @@ f(Q,b)=\lVert XQ+\mathbf{1}b^\top-Y\rVert_F^2 .
 ---
 
 <a id="sec1"></a>
+
 ## 1. Eliminación de la traslación (centrado)
 
 Sea $`A=XQ-Y`$. Para $`Q`$ fija, $`f(b)=\lVert A+\mathbf{1}b^\top\rVert_F^2`$ es una función cuadrática y convexa de $`b`$ (su hessiano es $`2nI`$). Su gradiente es
@@ -43,6 +44,7 @@ XQ+\mathbf{1}b^\top-Y=(X-\mathbf{1}\bar x^\top)Q-(Y-\mathbf{1}\bar y^\top)=X_cQ-
 de modo que $`Q`$ se obtiene resolviendo $`\min_Q\lVert X_cQ-Y_c\rVert_F^2`$, sin depender de $`b`$. Una vez hallada $`Q`$, la traslación es $`b=\bar y-Q^\top\bar x`$. Este centrado se trata en [[3]](fuentes.md#ref3) y [[8]](fuentes.md#ref8).
 
 <a id="sec2"></a>
+
 ## 2. Reducción a una maximización de traza
 
 Para $`Q`$ ortogonal,
@@ -66,6 +68,7 @@ Por lo tanto
 Como $`\lVert X_c\rVert_F^2`$ y $`\lVert Y_c\rVert_F^2`$ no dependen de $`Q`$, **minimizar la distancia equivale a maximizar $`\mathrm{tr}(Q^\top M)`$.**
 
 <a id="sec3"></a>
+
 ## 3. Solución en $`O(2)`$ mediante la SVD
 
 Esta es la solución general del problema ortogonal de [[1]](fuentes.md#ref1). Sea $`M=U\Sigma V^\top`$ con $`U,V`$ ortogonales y $`\Sigma=\mathrm{diag}(\sigma_1,\sigma_2)`$, $`\sigma_1\ge\sigma_2\ge0`$. Definimos $`Z=U^\top QV`$, que es ortogonal por ser producto de ortogonales. Por la propiedad cíclica,
@@ -97,6 +100,7 @@ y el costo mínimo es
 La matriz auxiliar $`Z`$ sigue el material de [[8]](fuentes.md#ref8).
 
 <a id="sec4"></a>
+
 ## 4. Unicidad y colinealidad
 
 La caracterización de la unicidad sigue a [[1]](fuentes.md#ref1) y [[8]](fuentes.md#ref8). La pérdida respecto del máximo es
@@ -115,6 +119,7 @@ Por tanto, **en $`O(2)`$ la solución es única si y solo si $`M`$ es no singula
 **Importante (casi colinealidad).** La no unicidad ocurre solo con $`\sigma_2=0`$ exacto. Si $`\sigma_2`$ es pequeño pero positivo, la solución sigue siendo única, pero las dos candidatas ($`UV^\top`$ y $`U\,\mathrm{diag}(1,-1)V^\top`$) difieren en el costo solo por $`4\sigma_2`$ (ver [sección 5](#sec5)), así que una perturbación pequeña de los datos basta para que el algoritmo cambie de una a otra. Es lo que muestran los experimentos con nubes casi colineales.
 
 <a id="sec5"></a>
+
 ## 5. Restricción a rotaciones propias ($`SO(2)`$)
 
 La corrección del signo del determinante (matriz $`D`$) es la base del algoritmo de Kabsch–Umeyama [[2]](fuentes.md#ref2), [[3]](fuentes.md#ref3), con justificación algebraica en [[7]](fuentes.md#ref7). Sea $`Q\in SO(2)`$ y $`Z=U^\top QV`$. Entonces
@@ -157,6 +162,7 @@ Si $`\det(UV^\top)=+1`$ la diferencia es $`0`$ (caso de control del experimento)
 **Unicidad en $`SO(2)`$.** Si $`\sigma_2=0<\sigma_1`$, las dos soluciones de $`O(2)`$ tienen determinantes opuestos, así que exactamente una es una rotación: **el problema restringido a $`SO(2)`$ sí tiene solución única** aunque $`M`$ sea singular. (Si $`\det(UV^\top)=-1`$ y $`\sigma_1=\sigma_2`$, en cambio, todas las rotaciones empatan, pues $`c`$ queda libre.) La condición de unicidad de $`O(2)`$ no se traslada a $`SO(2)`$ sin esta justificación.
 
 <a id="sec6"></a>
+
 ## 6. Escala (no estimada en este proyecto)
 
 El centrado y la escala óptima se tratan en [[3]](fuentes.md#ref3) y [[8]](fuentes.md#ref8). Con escala $`s\ge0`$, el mismo desarrollo da $`b^\top=\bar y^\top-s\,\bar x^\top Q`$ y, para $`Q`$ fija,
@@ -174,6 +180,7 @@ s^*=\frac{\mathrm{tr}(Q^\top X_c^\top Y_c)}{\lVert X_c\rVert_F^2}.
 En los experimentos se fija $`s=1`$ (solo rotación/reflexión y traslación).
 
 <a id="sec7"></a>
+
 ## 7. Algoritmo y su correspondencia con el código
 
 La implementación usa NumPy [[5]](fuentes.md#ref5).
