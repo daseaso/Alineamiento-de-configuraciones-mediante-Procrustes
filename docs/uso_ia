@@ -1,17 +1,17 @@
 # Declaración de uso de inteligencia artificial
 
 **Proyecto:** Recuperación de transformaciones rígidas bidimensionales bajo ruido mediante Procrustes ortogonal
-**Curso:** Álgebra Lineal Aplicada 2026-2 
+
+**Curso:** Álgebra Lineal Aplicada 2026-2
 
 El grupo usó herramientas de IA generativa como apoyo en las partes indicadas abajo. Todo el contenido fue revisado por los integrantes, que asumen la responsabilidad por él. El planteamiento del problema, las decisiones de diseño de los experimentos y las conclusiones son del grupo.
 
-
 ## 1. Resumen
 
-| # | Herramienta y versión | Finalidad | Parte del trabajo | Integrante(s) |
-|---|---|---|---|---|
-| 1 | Claude (Anthropic), modelo Claude Sonnet 5.5 | Apoyo en la redacción de la interpretación de resultados a partir del avance y del código del grupo | `docs/Interpretacion resultados.md` 
-| 2 | Claude (Anthropic), modelo Claude Opus 5.5, 16/11/2026 | Revisión de coherencia del repositorio antes de la entrega y apoyo en las correcciones | README, `docs/fuentes.md`, `docs/guion_video.md`, `docs/contribuciones.md`, `docs/Interpretacion resultados.md`, función `verificaciones()` y `results/` 
+| # | Herramienta y versión | Finalidad | Parte del trabajo |
+|---|---|---|---|
+| 1 | Claude (Anthropic), modelo Claude Sonnet 5.5 | Apoyo en la redacción de la interpretación de resultados a partir del avance y del código del grupo | [`docs/Interpretacion_resultados.md`](Interpretacion_resultados.md) |
+| 2 | Claude (Anthropic), modelo Claude Opus 5.5, 16/11/2026 | Revisión de coherencia del repositorio antes de la entrega y apoyo en las correcciones | `README.md`, [`docs/fuentes.md`](fuentes.md), [`docs/guion_video.md`](guion_video.md), [`docs/contribuciones.md`](contribuciones.md), [`docs/Interpretacion_resultados.md`](Interpretacion_resultados.md), función `verificaciones()` de [`src/procrustes_experimentos.py`](../src/procrustes_experimentos.py) y carpeta `results/` |
 
 ## 2. Instrucciones (prompts) relevantes
 
