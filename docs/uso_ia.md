@@ -15,12 +15,13 @@ El grupo usó herramientas de IA generativa como apoyo en las partes indicadas a
 
 ## 2. Instrucciones (prompts) relevantes
 
-**Uso 1 — interpretación de resultados.** 
+**Uso 1 — interpretación de resultados.** Se compartieron el avance, el código y `results/resultados.txt`, y se pidió redactar la interpretación de los tres experimentos separando el residuo de ajuste del error de recuperación y relacionando las cifras con la teoría.
 
 **Uso 2 — revisión y corrección del repositorio.** Prompts principales, en síntesis:
 
 1. Se compartieron los comentarios de revisión del grupo (nombres de archivo en las instrucciones, verificaciones faltantes en los resultados, valores del README, fuentes no citadas y contradicciones entre el guion y la interpretación) y el repositorio completo, con la instrucción.
-2. *"¿Hay contradicciones entre el guion y las tablas que se mencionan?"*
+2. Revisión del guion del video: duración y correspondencia con las diapositivas.
+
 
 ## 3. Qué hizo la IA en cada parte
 
