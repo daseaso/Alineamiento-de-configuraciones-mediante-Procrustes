@@ -116,7 +116,7 @@ con ambos sumandos $`\ge0`$. Para alcanzar el máximo se necesita $`z_{ii}=1`$ e
 
 Por tanto, **en $`O(2)`$ la solución es única si y solo si $`M`$ es no singular.** Si $`X_c`$ (o $`Y_c`$) es colineal, $`\mathrm{rango}(M)\le1`$ y $`\sigma_2=0`$.
 
-**Importante (casi colinealidad).** La no unicidad ocurre solo con $`\sigma_2=0`$ exacto. Si $`\sigma_2`$ es pequeño pero positivo, la solución sigue siendo única, pero las dos candidatas ($`UV^\top`$ y $`U\,\mathrm{diag}(1,-1)V^\top`$) difieren en el costo solo por $`4\sigma_2`$ (ver [sección 5](#sec5)), así que una perturbación pequeña de los datos basta para que el algoritmo cambie de una a otra. Es lo que muestran los experimentos con nubes casi colineales.
+**Importante (casi colinealidad).** La no unicidad ocurre solo con $`\sigma_2=0`$ exacto. Si $`\sigma_2`$ es pequeño pero positivo, la solución sigue siendo única, pero las dos candidatas ($`UV^\top`$ y $`U\,\mathrm{diag}(1,-1)V^\top`$) difieren en el costo solo por $`4\sigma_2`$ (ver [sección 5](#sec5)), así que una perturbación pequeña de los datos basta para que el algoritmo cambie de una a otra. Es lo que muestran los experimentos con nubes casi colineales (ver [Experimento C](Interpretacion_resultados.md#s5)).
 
 <a id="sec5"></a>
 
@@ -157,7 +157,7 @@ Q_{SO}=U\,D\,V^\top,\qquad D=\mathrm{diag}\big(1,\det(UV^\top)\big)
 \text{costo}_{SO(2)}-\text{costo}_{O(2)}=2\big[(\sigma_1+\sigma_2)-(\sigma_1-\sigma_2)\big]=4\sigma_2 .
 ```
 
-Si $`\det(UV^\top)=+1`$ la diferencia es $`0`$ (caso de control del experimento).
+Si $`\det(UV^\top)=+1`$ la diferencia es $`0`$ (caso de control del experimento; ver [Experimento B](Interpretacion_resultados.md#s4)).
 
 **Unicidad en $`SO(2)`$.** Si $`\sigma_2=0<\sigma_1`$, las dos soluciones de $`O(2)`$ tienen determinantes opuestos, así que exactamente una es una rotación: **el problema restringido a $`SO(2)`$ sí tiene solución única** aunque $`M`$ sea singular. (Si $`\det(UV^\top)=-1`$ y $`\sigma_1=\sigma_2`$, en cambio, todas las rotaciones empatan, pues $`c`$ queda libre.) La condición de unicidad de $`O(2)`$ no se traslada a $`SO(2)`$ sin esta justificación.
 
@@ -183,7 +183,7 @@ En los experimentos se fija $`s=1`$ (solo rotación/reflexión y traslación).
 
 ## 7. Algoritmo y su correspondencia con el código
 
-La implementación usa NumPy [[5]](fuentes.md#ref5).
+La implementación usa NumPy [[5]](fuentes.md#ref5) y está en `src/experimentos_procrustes.py`.
 
 | Paso | Fórmula | En `procrustes()` |
 |---|---|---|
@@ -193,7 +193,7 @@ La implementación usa NumPy [[5]](fuentes.md#ref5).
 | 4. Ortogonal / rotación | $`Q=UV^\top`$ ó $`Q=UDV^\top`$ | `Q = U @ D @ Vt` (con `D = I` en $`O(2)`$) |
 | 5. Traslación | $`b^\top=\bar y^\top-\bar x^\top Q`$ | `b = my - mx @ Q` |
 
-**Verificaciones teóricas que se comprueban numéricamente:** costo mínimo $`=\lVert X_c\rVert_F^2+\lVert Y_c\rVert_F^2-2(\sigma_1+\sigma_2)`$ ([sección 3](#sec3)); diferencia de costos $`=4\sigma_2(M)`$ ([sección 5](#sec5)); coincidencia con `scipy.linalg.orthogonal_procrustes` [[6]](fuentes.md#ref6) aplicada a datos centrados (SciPy no centra ni estima traslación).
+**Verificaciones teóricas que se comprueban numéricamente** (resultados en [`results/resultados.txt`](../results/resultados.txt), [`exp3_reflexion_resumen.csv`](../results/exp3_reflexion_resumen.csv) y la [interpretación](Interpretacion_resultados.md#s2)): costo mínimo $`=\lVert X_c\rVert_F^2+\lVert Y_c\rVert_F^2-2(\sigma_1+\sigma_2)`$ ([sección 3](#sec3)); diferencia de costos $`=4\sigma_2(M)`$ ([sección 5](#sec5)); coincidencia con `scipy.linalg.orthogonal_procrustes` [[6]](fuentes.md#ref6) aplicada a datos centrados (SciPy no centra ni estima traslación).
 
 ## Referencias
 
