@@ -49,7 +49,7 @@ Los archivos correspondientes a esta entrega se estructuran de la siguiente mane
 │   └── fig1 … fig4 (.png)
 └── docs/
     ├── desarrollo_matematico.md
-    ├── interpretacion_resultados.md
+    ├── Interpretacion_resultados.md
     ├── guion_video.md
     ├── fuentes.md
     ├── contribuciones.md
@@ -101,7 +101,7 @@ El programa tarda unos segundos, imprime los resultados en pantalla y regenera e
 
 **1. Estructura general del código**
 
-El archivo src/procrustes_experimentos.py está dividido en secciones identificadas con letras. Cada punto de la consigna tiene su lugar:
+El archivo src/experimentos_procrustes.py está dividido en secciones identificadas con letras. Cada punto de la consigna tiene su lugar:
 
 | Punto de la consigna | Sección | Funciones / elementos |
 |---|---|---|
@@ -176,7 +176,7 @@ Todas las figuras de puntos usan ax.set_aspect("equal") (función eq), para que 
 
 **11. Sección H: verificaciones y programa principal**
 
-`verificaciones()` compara la solución con `scipy.linalg.orthogonal_procrustes`, comprueba la ortogonalidad de Q, la fórmula del costo mínimo, el determinante y el contraste con la transpuesta Q₀ᵀ. `main()` ejecuta todo en orden: genera los puntos, corre los tres experimentos con sus repeticiones, ejecuta `verificaciones()` (comparación con SciPy, ‖QᵀQ − I‖ y fórmula del costo mínimo), produce las cuatro figuras y guarda el registro completo en resultados.txt.
+`verificaciones()` compara la solución con `scipy.linalg.orthogonal_procrustes`, comprueba la ortogonalidad de Q, la fórmula del costo mínimo, el determinante y el contraste con la transpuesta Q₀ᵀ. `main()` ejecuta todo en orden: genera los puntos, corre los tres experimentos, ejecuta verificaciones(), produce las cuatro figuras y guarda el registro completo en resultados.txt.
 
 
 ## Resultados principales
@@ -205,7 +205,7 @@ Figuras (en `results/`):
 ![Casi colinealidad](results/fig3_casi_colineal.png)
 ![Puntos casi colineales](results/fig4_colineal_puntos.png)
 
-El desarrollo matemático completo está en [`docs/desarrollo_matematico.md`](docs/desarrollo_matematico.md) y las tablas e interpretación detallada en [`docs/interpretacion_resultados.md`](docs/interpretacion_resultados.md).
+El desarrollo matemático completo está en [`docs/desarrollo_matematico.md`](docs/desarrollo_matematico.md) y las tablas e interpretación detallada en [`docs/Interpretacion_resultados.md`](docs/Interpretacion_resultados.md).
 En la interpretación los experimentos se llaman A, B y C; corresponden a los Exp. 2, 3 y 4 del código y de las figuras.
 
 ## Referencias
