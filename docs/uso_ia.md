@@ -11,7 +11,7 @@ El grupo usó herramientas de IA generativa como apoyo en las partes indicadas a
 | # | Herramienta y versión | Finalidad | Parte del trabajo |
 |---|---|---|---|
 | 1 | Claude (Anthropic), modelo Claude Sonnet 5.5 | Apoyo en la redacción de la interpretación de resultados a partir del avance y del código del grupo | [`docs/Interpretacion_resultados.md`](Interpretacion_resultados.md) |
-| 2 | Claude (Anthropic), modelo Claude Opus 5.5, 16/11/2026 | Revisión de coherencia del repositorio antes de la entrega y apoyo en las correcciones | `README.md`, [`docs/fuentes.md`](fuentes.md), [`docs/guion_video.md`](guion_video.md), [`docs/contribuciones.md`](contribuciones.md), [`docs/Interpretacion_resultados.md`](Interpretacion_resultados.md), función `verificaciones()` de [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py) y carpeta `results/` |
+| 2 | Claude (Anthropic), modelo Claude Opus 5.5, 16/11/2026 | Revisión de coherencia del repositorio antes de la entrega y apoyo en las correcciones | [`docs/desarrollo_matematico.md`](desarrollo_matematico.md),`README.md`, [`docs/fuentes.md`](fuentes.md), [`docs/guion_video.md`](guion_video.md), [`docs/contribuciones.md`](contribuciones.md), [`docs/Interpretacion_resultados.md`](Interpretacion_resultados.md), función `verificaciones()` de [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py) y carpeta `results/` |
 
 ## 2. Instrucciones (prompts) relevantes
 
@@ -19,7 +19,7 @@ El grupo usó herramientas de IA generativa como apoyo en las partes indicadas a
 
 **Uso 2 — revisión y corrección del repositorio.** Prompts principales, en síntesis:
 
-1. Se compartieron los comentarios de revisión del grupo (nombres de archivo en las instrucciones, verificaciones faltantes en los resultados, valores del README, fuentes no citadas y contradicciones entre el guion y la interpretación) y el repositorio completo, con la instrucción.
+1. Se compartieron los comentarios de revisión del grupo (nombres de archivo en las instrucciones, verificaciones faltantes en los resultados, valores del README, fuentes no citadas y contradicciones entre el guion y la interpretación) y el repositorio completo, con la instrucción de revisar qué faltaba corregir para la entrega final.
 2. Revisión del guion del video: duración y correspondencia con las diapositivas.
 
 
@@ -37,6 +37,6 @@ El grupo usó herramientas de IA generativa como apoyo en las partes indicadas a
 
 - Se reejecutó `src/experimentos_procrustes.py` desde `results/` y se comprobó que todas las cifras del README, de la interpretación y del guion coinciden con el nuevo `resultados.txt` y con los CSV (semilla fija `SEED = 20261101`).
 - Los máximos de |costo_SO2 − costo_O2 − 4σ₂| por nivel de ruido se recalcularon directamente desde `exp3_reflexion_corridas.csv`.
-- La afirmación de la sección 5.2 de la interpretación (≈ 21 % y ≈ 38 % de reflexiones con 4000 repeticiones) se recalculó por separado y dio ≈ 20 % y ≈ 39 %.
+- Se reejecutó `src/simulacion_criterio_relativo.py` y reproduce exactamente `results/simulacion_criterio_relativo.csv`.
 - Los datos bibliográficos de `docs/fuentes.md` se contrastaron con los DOI y enlaces de cada fuente.
 - Los integrantes leyeron los documentos corregidos antes de subirlos. 
