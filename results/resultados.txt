@@ -8,7 +8,7 @@ Q0 = [[0.642788, -0.766044], [0.766044, 0.642788]]
 Q0_ref (reflexion) = [[0.642788, 0.766044], [0.766044, -0.642788]]  det= -1.0
 
 === EXP 1-2: Y = X Q0 + 1 b0^T + E (rotacion), SO(2) ===
-eps= 0.00 | ||Q-Q0||=1.57e-16±2.5e-32 | ang=0.000±0.000 deg | ||b-b0||=9.16e-16±2.0e-31 | RMSE ajuste=1.157e-15±4.0e-31 | RMSE vs limpia=1.157e-15±4.0e-31
+eps= 0.00 | ||Q-Q0||=7.45e-16±1.0e-31 | ang=0.000±0.000 deg | ||b-b0||=9.93e-16±4.0e-31 | RMSE ajuste=3.088e-15±0.0e+00 | RMSE vs limpia=3.088e-15±0.0e+00
 eps= 0.01 | ||Q-Q0||=1.63e-03±9.3e-04 | ang=0.066±0.038 deg | ||b-b0||=6.65e-03±3.8e-03 | RMSE ajuste=4.716e-02±7.0e-04 | RMSE vs limpia=9.356e-03±3.5e-03
 eps= 0.02 | ||Q-Q0||=3.21e-03±2.1e-03 | ang=0.130±0.084 deg | ||b-b0||=1.56e-02±9.2e-03 | RMSE ajuste=9.396e-02±1.8e-03 | RMSE vs limpia=1.987e-02±8.6e-03
 eps= 0.05 | ||Q-Q0||=7.00e-03±4.2e-03 | ang=0.284±0.172 deg | ||b-b0||=4.31e-02±2.3e-02 | RMSE ajuste=2.346e-01±5.5e-03 | RMSE vs limpia=5.053e-02±2.2e-02
@@ -17,12 +17,12 @@ eps= 0.20 | ||Q-Q0||=2.66e-02±2.0e-02 | ang=1.079±0.801 deg | ||b-b0||=1.44e-0
 eps= 0.50 | ||Q-Q0||=5.96e-02±5.6e-02 | ang=2.414±2.270 deg | ||b-b0||=4.56e-01±2.3e-01 | RMSE ajuste=2.341e+00±6.7e-02 | RMSE vs limpia=5.194e-01±2.5e-01
 
 === EXP 3: Y = X Q0_ref + 1 b0^T + E (reflexion): O(2) vs SO(2) ===
-eps= 0.00 | det(Q_O2) medio=-1 | costo_SO2-costo_O2=2.69600e+02 | 4*sigma2=2.69600e+02 | |dif-4s2| max=0.0e+00 | ||Q-Q0|| O2=1.57e-16, SO2=2.00e+00 | RMSE ajuste O2=1.222e-15, SO2=2.998e+00
-eps= 0.01 | det(Q_O2) medio=-1 | costo_SO2-costo_O2=2.70208e+02 | 4*sigma2=2.70208e+02 | |dif-4s2| max=1.7e-13 | ||Q-Q0|| O2=1.49e-03, SO2=2.00e+00 | RMSE ajuste O2=4.707e-02, SO2=3.002e+00
-eps= 0.02 | det(Q_O2) medio=-1 | costo_SO2-costo_O2=2.69183e+02 | 4*sigma2=2.69183e+02 | |dif-4s2| max=2.3e-13 | ||Q-Q0|| O2=2.72e-03, SO2=2.00e+00 | RMSE ajuste O2=9.385e-02, SO2=2.997e+00
-eps= 0.05 | det(Q_O2) medio=-1 | costo_SO2-costo_O2=2.71259e+02 | 4*sigma2=2.71259e+02 | |dif-4s2| max=2.3e-13 | ||Q-Q0|| O2=4.38e-03, SO2=2.00e+00 | RMSE ajuste O2=2.371e-01, SO2=3.016e+00
-eps= 0.10 | det(Q_O2) medio=-1 | costo_SO2-costo_O2=2.72777e+02 | 4*sigma2=2.72777e+02 | |dif-4s2| max=1.1e-13 | ||Q-Q0|| O2=1.76e-02, SO2=2.00e+00 | RMSE ajuste O2=4.683e-01, SO2=3.051e+00
-eps= 0.20 | det(Q_O2) medio=-1 | costo_SO2-costo_O2=2.63148e+02 | 4*sigma2=2.63148e+02 | |dif-4s2| max=1.7e-13 | ||Q-Q0|| O2=3.47e-02, SO2=2.00e+00 | RMSE ajuste O2=9.354e-01, SO2=3.104e+00
+eps= 0.00 | det(Q_O2) medio=-1 | costo_SO2-costo_O2=2.69600e+02 | 4*sigma2=2.69600e+02 | |dif-4s2| max=1.1e-13 | ||Q-Q0|| O2=7.45e-16, SO2=2.00e+00 | RMSE ajuste O2=3.056e-15, SO2=2.998e+00
+eps= 0.01 | det(Q_O2) medio=-1 | costo_SO2-costo_O2=2.70208e+02 | 4*sigma2=2.70208e+02 | |dif-4s2| max=2.3e-13 | ||Q-Q0|| O2=1.49e-03, SO2=2.00e+00 | RMSE ajuste O2=4.707e-02, SO2=3.002e+00
+eps= 0.02 | det(Q_O2) medio=-1 | costo_SO2-costo_O2=2.69183e+02 | 4*sigma2=2.69183e+02 | |dif-4s2| max=1.7e-13 | ||Q-Q0|| O2=2.72e-03, SO2=2.00e+00 | RMSE ajuste O2=9.385e-02, SO2=2.997e+00
+eps= 0.05 | det(Q_O2) medio=-1 | costo_SO2-costo_O2=2.71259e+02 | 4*sigma2=2.71259e+02 | |dif-4s2| max=2.8e-13 | ||Q-Q0|| O2=4.38e-03, SO2=2.00e+00 | RMSE ajuste O2=2.371e-01, SO2=3.016e+00
+eps= 0.10 | det(Q_O2) medio=-1 | costo_SO2-costo_O2=2.72777e+02 | 4*sigma2=2.72777e+02 | |dif-4s2| max=1.7e-13 | ||Q-Q0|| O2=1.76e-02, SO2=2.00e+00 | RMSE ajuste O2=4.683e-01, SO2=3.051e+00
+eps= 0.20 | det(Q_O2) medio=-1 | costo_SO2-costo_O2=2.63148e+02 | 4*sigma2=2.63148e+02 | |dif-4s2| max=2.8e-13 | ||Q-Q0|| O2=3.47e-02, SO2=2.00e+00 | RMSE ajuste O2=9.354e-01, SO2=3.104e+00
 eps= 0.50 | det(Q_O2) medio=-1 | costo_SO2-costo_O2=2.80626e+02 | 4*sigma2=2.80626e+02 | |dif-4s2| max=2.8e-13 | ||Q-Q0|| O2=7.51e-02, SO2=2.00e+00 | RMSE ajuste O2=2.361e+00, SO2=3.853e+00
 Maximo |(costo_SO2-costo_O2) - 4*sigma2| sobre todas las corridas: 2.842e-13
 Control (verdad=rotacion, eps=0.1): costo_SO2-costo_O2 = 0.00e+00
@@ -35,3 +35,13 @@ delta= 0.030 | s2/s1(X)=0.0110 | ||Q-Q0|| SO2=1.43e-03±1.0e-03 | O2=1.43e-03±1
 delta= 0.010 | s2/s1(X)=0.0037 | ||Q-Q0|| SO2=1.51e-03±9.9e-04 | O2=1.51e-03±9.9e-04 | frac. reflexiones O2=0.00 | ||Q(Y)-Q(Y_limpia)||=1.51e-03 | RMSE ajuste=3.201e-02 | RMSE vs limpia=6.847e-03 | 4*sigma2(M)=1.463e-02
 delta= 0.003 | s2/s1(X)=0.0011 | ||Q-Q0|| SO2=1.23e-03±9.7e-04 | O2=2.01e-01±6.2e-01 | frac. reflexiones O2=0.10 | ||Q(Y)-Q(Y_limpia)||=1.23e-03 | RMSE ajuste=3.213e-02 | RMSE vs limpia=6.429e-03 | 4*sigma2(M)=2.315e-03
 delta= 0.001 | s2/s1(X)=0.0004 | ||Q-Q0|| SO2=1.67e-03±9.2e-04 | O2=1.40e+00±9.4e-01 | frac. reflexiones O2=0.70 | ||Q(Y)-Q(Y_limpia)||=1.67e-03 | RMSE ajuste=3.210e-02 | RMSE vs limpia=6.499e-03 | 4*sigma2(M)=4.227e-04
+
+=== VERIFICACIONES (SciPy, ortogonalidad, formula del minimo) ===
+||Q_propio - R_scipy||_F = 0.00e+00
+scale SciPy = 687.5302607026 ; suma de valores singulares = 687.5302607026
+||Q^T Q - I||_F = 4.24e-16
+det(Q) = +1.000000  (ruido 0.1, O(2); verdad = rotacion)
+costo directo = 6.826502274565 ; formula = 6.826502274566
+|directo - formula| = 2.03e-13
+Datos exactos: ||Q - Q0||_F = 7.45e-16 ; ||b - b0|| = 9.93e-16
+Contraste:     ||Q - Q0^T||_F = 2.167  (distinto de 0: no se devuelve la transpuesta)
