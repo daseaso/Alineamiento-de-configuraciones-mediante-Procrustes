@@ -15,10 +15,11 @@
 f(Q,b)=\lVert XQ+\mathbf{1}b^\top-Y\rVert_F^2 .
 ```
 
-(La escala se fija en $`s=1`$; ver la sección 6.)
+(La escala se fija en $`s=1`$; ver la [sección 6](#sec6).) Planteamiento del tema según [[8]](fuentes.md#ref8).
 
 ---
 
+<a id="sec1"></a>
 ## 1. Eliminación de la traslación (centrado)
 
 Sea $`A=XQ-Y`$. Para $`Q`$ fija, $`f(b)=\lVert A+\mathbf{1}b^\top\rVert_F^2`$ es una función cuadrática y convexa de $`b`$ (su hessiano es $`2nI`$). Su gradiente es
@@ -39,8 +40,9 @@ Al sustituir,
 XQ+\mathbf{1}b^\top-Y=(X-\mathbf{1}\bar x^\top)Q-(Y-\mathbf{1}\bar y^\top)=X_cQ-Y_c ,
 ```
 
-de modo que $`Q`$ se obtiene resolviendo $`\min_Q\lVert X_cQ-Y_c\rVert_F^2`$, sin depender de $`b`$. Una vez hallada $`Q`$, la traslación es $`b=\bar y-Q^\top\bar x`$.
+de modo que $`Q`$ se obtiene resolviendo $`\min_Q\lVert X_cQ-Y_c\rVert_F^2`$, sin depender de $`b`$. Una vez hallada $`Q`$, la traslación es $`b=\bar y-Q^\top\bar x`$. Este centrado se trata en [[3]](fuentes.md#ref3) y [[8]](fuentes.md#ref8).
 
+<a id="sec2"></a>
 ## 2. Reducción a una maximización de traza
 
 Para $`Q`$ ortogonal,
@@ -63,9 +65,10 @@ Por lo tanto
 
 Como $`\lVert X_c\rVert_F^2`$ y $`\lVert Y_c\rVert_F^2`$ no dependen de $`Q`$, **minimizar la distancia equivale a maximizar $`\mathrm{tr}(Q^\top M)`$.**
 
+<a id="sec3"></a>
 ## 3. Solución en $`O(2)`$ mediante la SVD
 
-Sea $`M=U\Sigma V^\top`$ con $`U,V`$ ortogonales y $`\Sigma=\mathrm{diag}(\sigma_1,\sigma_2)`$, $`\sigma_1\ge\sigma_2\ge0`$. Definimos $`Z=U^\top QV`$, que es ortogonal por ser producto de ortogonales. Por la propiedad cíclica,
+Esta es la solución general del problema ortogonal de [[1]](fuentes.md#ref1). Sea $`M=U\Sigma V^\top`$ con $`U,V`$ ortogonales y $`\Sigma=\mathrm{diag}(\sigma_1,\sigma_2)`$, $`\sigma_1\ge\sigma_2\ge0`$. Definimos $`Z=U^\top QV`$, que es ortogonal por ser producto de ortogonales. Por la propiedad cíclica,
 
 ```math
 \mathrm{tr}(Q^\top M)=\mathrm{tr}(Q^\top U\Sigma V^\top)=\mathrm{tr}(V^\top Q^\top U\,\Sigma)=\mathrm{tr}(Z^\top\Sigma)=\sigma_1z_{11}+\sigma_2z_{22}.
@@ -91,9 +94,12 @@ y el costo mínimo es
 \lVert X_c\rVert_F^2+\lVert Y_c\rVert_F^2-2(\sigma_1+\sigma_2).
 ```
 
+La matriz auxiliar $`Z`$ sigue el material de [[8]](fuentes.md#ref8).
+
+<a id="sec4"></a>
 ## 4. Unicidad y colinealidad
 
-La pérdida respecto del máximo es
+La caracterización de la unicidad sigue a [[1]](fuentes.md#ref1) y [[8]](fuentes.md#ref8). La pérdida respecto del máximo es
 
 ```math
 (\sigma_1+\sigma_2)-\mathrm{tr}(Q^\top M)=\sigma_1(1-z_{11})+\sigma_2(1-z_{22}),
@@ -106,11 +112,12 @@ con ambos sumandos $`\ge0`$. Para alcanzar el máximo se necesita $`z_{ii}=1`$ e
 
 Por tanto, **en $`O(2)`$ la solución es única si y solo si $`M`$ es no singular.** Si $`X_c`$ (o $`Y_c`$) es colineal, $`\mathrm{rango}(M)\le1`$ y $`\sigma_2=0`$.
 
-**Importante (casi colinealidad).** La no unicidad ocurre solo con $`\sigma_2=0`$ exacto. Si $`\sigma_2`$ es pequeño pero positivo, la solución sigue siendo única, pero las dos candidatas ($`UV^\top`$ y $`U\,\mathrm{diag}(1,-1)V^\top`$) difieren en el costo solo por $`4\sigma_2`$ (ver sección 5), así que una perturbación pequeña de los datos basta para que el algoritmo cambie de una a otra. Es lo que muestran los experimentos con nubes casi colineales.
+**Importante (casi colinealidad).** La no unicidad ocurre solo con $`\sigma_2=0`$ exacto. Si $`\sigma_2`$ es pequeño pero positivo, la solución sigue siendo única, pero las dos candidatas ($`UV^\top`$ y $`U\,\mathrm{diag}(1,-1)V^\top`$) difieren en el costo solo por $`4\sigma_2`$ (ver [sección 5](#sec5)), así que una perturbación pequeña de los datos basta para que el algoritmo cambie de una a otra. Es lo que muestran los experimentos con nubes casi colineales.
 
+<a id="sec5"></a>
 ## 5. Restricción a rotaciones propias ($`SO(2)`$)
 
-Sea $`Q\in SO(2)`$ y $`Z=U^\top QV`$. Entonces
+La corrección del signo del determinante (matriz $`D`$) es la base del algoritmo de Kabsch–Umeyama [[2]](fuentes.md#ref2), [[3]](fuentes.md#ref3), con justificación algebraica en [[7]](fuentes.md#ref7). Sea $`Q\in SO(2)`$ y $`Z=U^\top QV`$. Entonces
 
 ```math
 \det Z=\det U\cdot\det Q\cdot\det V=\det(U)\det(V)=\det(UV^\top).
@@ -139,7 +146,7 @@ Q_{SO}=U\,D\,V^\top,\qquad D=\mathrm{diag}\big(1,\det(UV^\top)\big)
 
 (y $`\det Q_{SO}=\det U\,\det D\,\det V=\det(UV^\top)^2=+1`$).
 
-**Costo de prohibir la reflexión.** Cuando $`\det(UV^\top)=-1`$, la traza máxima baja de $`\sigma_1+\sigma_2`$ a $`\sigma_1-\sigma_2`$ (pierde $`2\sigma_2`$). Como en la sección 2 la traza aparece multiplicada por $`-2`$,
+**Costo de prohibir la reflexión.** Cuando $`\det(UV^\top)=-1`$, la traza máxima baja de $`\sigma_1+\sigma_2`$ a $`\sigma_1-\sigma_2`$ (pierde $`2\sigma_2`$). Como en la [sección 2](#sec2) la traza aparece multiplicada por $`-2`$,
 
 ```math
 \text{costo}_{SO(2)}-\text{costo}_{O(2)}=2\big[(\sigma_1+\sigma_2)-(\sigma_1-\sigma_2)\big]=4\sigma_2 .
@@ -149,9 +156,10 @@ Si $`\det(UV^\top)=+1`$ la diferencia es $`0`$ (caso de control del experimento)
 
 **Unicidad en $`SO(2)`$.** Si $`\sigma_2=0<\sigma_1`$, las dos soluciones de $`O(2)`$ tienen determinantes opuestos, así que exactamente una es una rotación: **el problema restringido a $`SO(2)`$ sí tiene solución única** aunque $`M`$ sea singular. (Si $`\det(UV^\top)=-1`$ y $`\sigma_1=\sigma_2`$, en cambio, todas las rotaciones empatan, pues $`c`$ queda libre.) La condición de unicidad de $`O(2)`$ no se traslada a $`SO(2)`$ sin esta justificación.
 
+<a id="sec6"></a>
 ## 6. Escala (no estimada en este proyecto)
 
-Con escala $`s\ge0`$, el mismo desarrollo da $`b^\top=\bar y^\top-s\,\bar x^\top Q`$ y, para $`Q`$ fija,
+El centrado y la escala óptima se tratan en [[3]](fuentes.md#ref3) y [[8]](fuentes.md#ref8). Con escala $`s\ge0`$, el mismo desarrollo da $`b^\top=\bar y^\top-s\,\bar x^\top Q`$ y, para $`Q`$ fija,
 
 ```math
 \lVert sX_cQ-Y_c\rVert_F^2=s^2\lVert X_c\rVert_F^2-2s\,\mathrm{tr}(Q^\top X_c^\top Y_c)+\lVert Y_c\rVert_F^2,
@@ -165,7 +173,10 @@ s^*=\frac{\mathrm{tr}(Q^\top X_c^\top Y_c)}{\lVert X_c\rVert_F^2}.
 
 En los experimentos se fija $`s=1`$ (solo rotación/reflexión y traslación).
 
+<a id="sec7"></a>
 ## 7. Algoritmo y su correspondencia con el código
+
+La implementación usa NumPy [[5]](fuentes.md#ref5).
 
 | Paso | Fórmula | En `procrustes()` |
 |---|---|---|
@@ -175,24 +186,8 @@ En los experimentos se fija $`s=1`$ (solo rotación/reflexión y traslación).
 | 4. Ortogonal / rotación | $`Q=UV^\top`$ ó $`Q=UDV^\top`$ | `Q = U @ D @ Vt` (con `D = I` en $`O(2)`$) |
 | 5. Traslación | $`b^\top=\bar y^\top-\bar x^\top Q`$ | `b = my - mx @ Q` |
 
-**Verificaciones teóricas que se comprueban numéricamente:** costo mínimo $`=\lVert X_c\rVert_F^2+\lVert Y_c\rVert_F^2-2(\sigma_1+\sigma_2)`$ (sección 3); diferencia de costos $`=4\sigma_2(M)`$ (sección 5); coincidencia con `scipy.linalg.orthogonal_procrustes` aplicada a datos centrados (SciPy no centra ni estima traslación).
+**Verificaciones teóricas que se comprueban numéricamente:** costo mínimo $`=\lVert X_c\rVert_F^2+\lVert Y_c\rVert_F^2-2(\sigma_1+\sigma_2)`$ ([sección 3](#sec3)); diferencia de costos $`=4\sigma_2(M)`$ ([sección 5](#sec5)); coincidencia con `scipy.linalg.orthogonal_procrustes` [[6]](fuentes.md#ref6) aplicada a datos centrados (SciPy no centra ni estima traslación).
 
 ## Referencias
 
-La numeración es única para todo el repositorio: los números entre corchetes que aparecen en `desarrollo_matematico.md` y en `Interpretacion resultados.md` remiten a esta lista.
-
-[1] P. H. Schönemann, "A generalized solution of the orthogonal Procrustes problem," *Psychometrika*, vol. 31, no. 1, pp. 1–10, 1966, doi: 10.1007/BF02289451.
-
-[2] W. Kabsch, "A solution for the best rotation to relate two sets of vectors," *Acta Crystallogr. A*, vol. 32, no. 5, pp. 922–923, 1976, doi: 10.1107/S0567739476001873.
-
-[3] S. Umeyama, "Least-squares estimation of transformation parameters between two point patterns," *IEEE Trans. Pattern Anal. Mach. Intell.*, vol. 13, no. 4, pp. 376–380, Apr. 1991, doi: 10.1109/34.88573.
-
-[4] M. Even, L. Ganassali, J. Maier, and L. Massoulié, "Aligning embeddings and geometric random graphs: Informational results and computational approaches for the Procrustes–Wasserstein problem," 2024, *arXiv:2405.14532*. [Online]. Available: https://arxiv.org/abs/2405.14532
-
-[5] C. R. Harris *et al.*, "Array programming with NumPy," *Nature*, vol. 585, pp. 357–362, 2020, doi: 10.1038/s41586-020-2649-2.
-
-[6] SciPy Developers, "scipy.linalg.orthogonal_procrustes," *SciPy Documentation*. Accessed: Nov. 1, 2026. [Online]. Available: https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.orthogonal_procrustes.html
-
-[7] J. Lawrence, J. Bernal, and C. Witzgall, "A purely algebraic justification of the Kabsch–Umeyama algorithm," *J. Res. Natl. Inst. Stand. Technol.*, vol. 124, Art. no. 124028, 2019, doi: 10.6028/jres.124.028.
-
-[8] O. Velásquez Castañón, "Alineamiento de configuraciones mediante Procrustes: Matrices ortogonales, SVD y estabilidad," material de referencia, Álgebra Lineal Aplicada 2026-2, Universidad del Pacífico, Lima, Perú, oct. 2026.
+La lista completa, con la numeración única del repositorio, está en [`fuentes.md`](fuentes.md): [[1]](fuentes.md#ref1), [[2]](fuentes.md#ref2), [[3]](fuentes.md#ref3), [[4]](fuentes.md#ref4), [[5]](fuentes.md#ref5), [[6]](fuentes.md#ref6), [[7]](fuentes.md#ref7), [[8]](fuentes.md#ref8).
