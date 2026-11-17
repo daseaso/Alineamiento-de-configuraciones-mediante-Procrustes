@@ -125,11 +125,7 @@ Se giró la nube 50° y se trasladó, se añadió ruido de nivel ε entre 0 y 0.
 
 1. **Sin ruido el método es exacto.** Con ε = 0 los errores son del orden de 10⁻¹⁵ (precisión de máquina). Confirma las fórmulas y que el código no devuelve la transpuesta.
 2. **El error crece de forma casi proporcional al ruido.** De ε = 0.01 a 0.10 (×10), el error angular se multiplica por 9 (0.066° → 0.592°). Es lo esperado en mínimos cuadrados: para ruido pequeño, un cambio pequeño en los datos produce un cambio aproximadamente lineal en la solución. Con ruidos grandes se afloja (de ε = 0.01 a 0.5, 50 veces más ruido, el error aumenta unas 37 veces) porque deja de valer la aproximación de primer orden.
-3. **El tamaño del error se puede predecir.** Cada entrada del ruido tiene desviación $`s=\varepsilon\lVert X_c\rVert_F/\sqrt{2N}`$. Un punto a distancia $`r_i`$ del centro informa sobre el ángulo mediante el ruido perpendicular a su radio, con información total $`\sum r_i^2/s^2=\lVert X_c\rVert_F^2/s^2`$. Entonces la desviación típica del error angular es aproximadamente
-
-   $$
-   \sigma_\theta \approx \frac{\varepsilon}{\sqrt{2N}} \text{ rad} \approx 7.4^\circ \cdot \varepsilon \qquad (N=30)
-   $$
+3. **El tamaño del error se puede predecir.** Cada entrada del ruido tiene desviación $`s=\varepsilon\lVert X_c\rVert_F/\sqrt{2N}`$. Un punto a distancia $`r_i`$ del centro informa sobre el ángulo mediante el ruido perpendicular a su radio, con información total $`\sum r_i^2/s^2=\lVert X_c\rVert_F^2/s^2`$. Entonces la desviación típica del error angular es aproximadamente $`\sigma_\theta \approx \dfrac{\varepsilon}{\sqrt{2N}}\ \text{rad} \approx 7.4^\circ\cdot\varepsilon`$ para $`N=30`$.
 
    La tabla siguiente lo compara con lo observado (raíz de media² + desviación²) y coincide dentro de un 10 %. Es un contraste de orden de magnitud; no forma parte del desarrollo formal.
 
@@ -183,16 +179,7 @@ Datos generados con una reflexión (det Q₀ = −1). Se resolvió en O(2) (admi
 
 1. **O(2) detecta la reflexión en las 140 corridas** (det = −1 incluso con ε = 0.5). El sobrecosto de no admitir reflexiones, 4σ₂(M) ≈ 270, es grande: los datos "piden" una reflexión con claridad y el ruido no la cambia.
 2. **La diferencia de costos coincide con 4σ₂(M).** Las columnas 3 y 4 son iguales y el error máximo de la igualdad es 2.8e-13 (precisión de máquina relativa a 270). Verifica el teorema de las rotaciones propias [[2]](fuentes.md#ref2), [[3]](fuentes.md#ref3) ([desarrollo, sección 5](desarrollo_matematico.md#sec5)): si det(UVᵀ) = −1, la traza máxima baja 2σ₂ y el costo cuadrático sube 4σ₂. El control con verdad = rotación da diferencia 0.
-3. **Forzar SO(2) cuando la verdad es reflexión da un error constante de ≈ 2.** No es casualidad: $`Q_{\mathrm{SO}}=UDV^\top=(UV^\top)R`$ con $`R=V\,\mathrm{diag}(1,-1)V^\top`$, una reflexión simétrica. Entonces
-
-   $$
-   \begin{aligned}
-   \|Q_{\mathrm{SO}}-Q_0\|_F &= \|R-I\|_F \\
-   &= \|V\,\mathrm{diag}(0,-2)\,V^\top\|_F = 2
-   \end{aligned}
-   $$
-
-   sin importar los datos. Entre las dos candidatas la distancia es exactamente 2; frente a la verdad es ≈ 2, porque $`Q_0`$ no coincide del todo con $`Q_{0}^{\mathrm{ref}}`$ (su error es de 10⁻³ a 10⁻¹ según el ruido, [tabla 4.2](#s4-2)). La misma cuenta explica por qué, en el Experimento C, cada confusión de O(2) cuesta ≈ 2.
+3. **Forzar SO(2) cuando la verdad es reflexión da un error constante de ≈ 2.** No es casualidad: $`Q_{\mathrm{SO}}=UDV^\top=(UV^\top)R`$ con $`R=V\,\mathrm{diag}(1,-1)V^\top`$, una reflexión simétrica. Entonces $`\lVert Q_{\mathrm{SO}}-Q_0\rVert_F=\lVert R-I\rVert_F=\lVert V\,\mathrm{diag}(0,-2)\,V^\top\rVert_F=2`$, sin importar los datos. Entre las dos candidatas la distancia es exactamente 2; frente a la verdad es ≈ 2, porque $`Q_0`$ no coincide del todo con $`Q_{0}^{\mathrm{ref}}`$ (su error es de 10⁻³ a 10⁻¹ según el ruido, [tabla 4.2](#s4-2)). La misma cuenta explica por qué, en el Experimento C, cada confusión de O(2) cuesta ≈ 2.
 4. **El error de O(2) crece con el ruido como en el Experimento A:** de 1.5e-3 (ε = 0.01) a 7.5e-2 (ε = 0.5), 50 veces más error para 50 veces más ruido.
 5. **Significado práctico.** Si el problema prohíbe reflexiones pero los datos vienen de una, SO(2) no falla visiblemente: devuelve una rotación razonable. La alarma es el sobrecosto de 4σ₂ respecto de O(2).
 
@@ -250,13 +237,7 @@ Se aplanó la nube: la segunda coordenada se multiplicó por un espesor δ que b
 
 ### 5.4 Simulación auxiliar: criterio relativo r
 
-**Qué se hizo.** El Experimento C varía solo δ con ε fijo, así que no permite saber si lo que importa es el espesor de la nube, el ruido o la relación entre ambos. La simulación [`src/simulacion_criterio_relativo.py`](../src/simulacion_criterio_relativo.py) importa la nube base y la función `procrustes()` de [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py) y recorre **4 niveles de ruido (ε = 0.005, 0.01, 0.02, 0.05) × 9 espesores (δ de 0.0003 a 0.1)**, con **400 repeticiones** por combinación (semilla 1). Para cada combinación calcula la fracción de corridas en que O(2) devuelve una reflexión y el cociente
-
-$$
-r=\frac{\sigma_2(M_{\mathrm{limpia}})}{s\,\sigma_2(X_c)}=\frac{\sigma_2(X_c)}{s},\qquad s=\frac{\varepsilon\lVert X_c\rVert_F}{\sqrt{2N}}
-$$
-
-que mide el espesor de la nube en la dirección débil en unidades de ruido. (Sin ruido, $`M=X_c^\top X_cQ_0`$, por lo que $`\sigma_2(M)=\sigma_2(X_c)^2`$; el ruido aporta a M, en la dirección débil, una perturbación del orden de $`\sigma_2(X_c)\,s`$. El cociente compara señal y perturbación.)
+**Qué se hizo.** El Experimento C varía solo δ con ε fijo, así que no permite saber si lo que importa es el espesor de la nube, el ruido o la relación entre ambos. La simulación [`src/simulacion_criterio_relativo.py`](../src/simulacion_criterio_relativo.py) importa la nube base y la función `procrustes()` de [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py) y recorre **4 niveles de ruido (ε = 0.005, 0.01, 0.02, 0.05) × 9 espesores (δ de 0.0003 a 0.1)**, con **400 repeticiones** por combinación (semilla 1). Para cada combinación calcula la fracción de corridas en que O(2) devuelve una reflexión y el cociente $`r=\dfrac{\sigma_2(M_{\mathrm{limpia}})}{s\,\sigma_2(X_c)}=\dfrac{\sigma_2(X_c)}{s}`$, con $`s=\dfrac{\varepsilon\lVert X_c\rVert_F}{\sqrt{2N}}`$, que mide el espesor de la nube en la dirección débil en unidades de ruido. (Sin ruido, $`M=X_c^\top X_cQ_0`$, por lo que $`\sigma_2(M)=\sigma_2(X_c)^2`$; el ruido aporta a M, en la dirección débil, una perturbación del orden de $`\sigma_2(X_c)\,s`$. El cociente compara señal y perturbación.)
 
 **Resultados** ([`results/simulacion_criterio_relativo.csv`](../results/simulacion_criterio_relativo.csv)):
 
