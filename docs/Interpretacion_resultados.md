@@ -1,14 +1,14 @@
-## Interpretación detallada de los resultados preliminares
+## Interpretación detallada de los resultados
 
 **Proyecto:** Recuperación de transformaciones rígidas bidimensionales bajo ruido mediante Procrustes ortogonal
 
 **Curso:** Álgebra Lineal Aplicada 2026-2 
 
-**Estado:** Entrega parcial (`avance-parcial`)
+**Estado:** Entrega final (`entrega-final`)
 
 **Integrantes:** Clara Jimena Palma Dolmos, Yanira Thais Sanchez Cárdenas, Daniel Alejandro Seas Ordinola, Alyssa Antuanette Trujillo Cruzado
 
-> Todas las cifras de este documento salen de ejecutar `src/experimentos_procrustes.py` (semilla fija) y coinciden con `results/resultados.txt` y con los CSV de `results/`. La teoría que se cita (reducción a traza, solución por SVD, unicidad, caso SO(2), centrado) está en el desarrollo matemático.
+> Todas las cifras de este documento salen de ejecutar `src/experimentos_procrustes.py` (semilla fija `SEED = 20261101`) y `src/simulacion_criterio_relativo.py` (semilla `1`), y coinciden con `results/resultados.txt`, `results/simulacion_criterio_relativo.csv` y los demás CSV de `results/`. La teoría que se cita está en el desarrollo matemático.
 
 ## Índice
 
@@ -39,7 +39,7 @@ Hay dos preguntas distintas:
 - **Datos sintéticos:** N = 30 puntos en el plano, con semilla fija (`SEED = 20261101`). Como Y se construye con una transformación conocida, se puede medir cuánto se equivoca el método.
 - **Transformación verdadera:** rotación Q₀ de 50° y traslación b₀ = (2.5, −1.5). En el Experimento B la verdad es la reflexión Q₀·diag(1, −1).
 - **Ruido:** matriz E gaussiana normalizada para que $\lVert E\rVert_F = \varepsilon\,\lVert X_c\rVert_F$. Así ε es un ruido *relativo*: ε = 0.10 significa que el ruido tiene el 10 % de la norma de la nube centrada.
-- **Repeticiones:** 20 por nivel de ruido, cada una con su propio generador aleatorio (reproducible por separado). Se reporta media ± desviación estándar.
+- **Repeticiones:** 20 por nivel en los experimentos A, B y C, cada una con su propio generador aleatorio (reproducible por separado), y 400 por combinación en la simulación auxiliar (§5.4). Se reporta media ± desviación estándar.
 - **Algoritmo:** se centran X e Y, se calcula la SVD de $M = X_c^\top Y_c$ y se toma $Q = UV^\top$ (en O(2)) [1] o $Q = UDV^\top$ con $D=\text{diag}(1, \det(UV^\top))$ (en SO(2)), que es el algoritmo de Kabsch–Umeyama [2], [3]. La traslación es $b = \bar y - Q^\top \bar x$..
 - **Implementación:** Python con NumPy [5] para el álgebra lineal y SciPy [6] solo para la comparación de la sección 2.
 
@@ -48,6 +48,7 @@ Hay dos preguntas distintas:
 - **H1.** Con una nube bien condicionada, el error de recuperación crece aproximadamente proporcional al ruido y es menor que el residuo de ajuste.
 - **H2.** Con puntos casi colineales, el residuo de ajuste se mantiene pequeño aunque el error de recuperación crezca (en O(2), por confusión entre rotación y reflexión).
 - **H3.** Forzar det Q = +1 cuando la verdad es una reflexión eleva el costo cuadrático exactamente en 4σ₂(M).
+- **H4.** La frecuencia de confusiones rotación/reflexión en O(2) depende del cociente r = σ₂(Xc)/s entre el espesor de la nube y el ruido, y no de δ ni de ε por separado.
 
 ### 1.2 Métricas
 
@@ -124,7 +125,7 @@ Se giró la nube 50° y se trasladó, se añadió ruido de nivel ε entre 0 y 0.
    | 0.50 | 3.314 | 3.698 | 0.90 |
 
 4. **El residuo de ajuste solo refleja el ruido.** El RMSE de ajuste vale ≈ ε·‖Xc‖_F/√N = 4.82·ε (0.0472 para ε = 0.01; 2.341 para ε = 0.5): es el ruido inyectado, que ninguna transformación rígida puede eliminar. No dice si la transformación está bien recuperada.
-5. **El error contra la señal limpia es unas 5 veces menor que el residuo.** El cociente está entre 4.5 y 5.2 en todos los niveles. Solo se estiman 3 parámetros (ángulo y dos coordenadas de b) con 2N = 60 coordenadas de datos, por lo que el ajuste absorbe √(3/60) ≈ 0.22 del ruido (un factor 1/4.5). El método filtra la mayor parte del ruido.
+5. **El error contra la señal limpia es unas 5 veces menor que el residuo.** El cociente está entre 4.5 y 5.2 en todos los niveles. Solo se estiman 3 parámetros (ángulo y dos coordenadas de b) con 2N = 60 coordenadas de datos, por lo que el error contra la señal limpia es del orden de √(3/57) ≈ 0.23 del residuo (un factor ≈ 1/4.4). El método filtra la mayor parte del ruido.
 6. **La traslación acompaña a la rotación.** `‖b − b₀‖` crece con ε. Parte viene del error angular: como b = ȳ − Qᵀx̄, un error ΔQ produce un error −ΔQᵀx̄ en b, proporcional a la distancia de la nube al origen.
 7. **A ruido alto la estimación es poco fiable.** Con ε = 0.5 la desviación (2.270°) casi iguala a la media (2.414°): entre corridas el error va de casi 0 a más de 5°. Ese régimen exige más repeticiones o más puntos.
 
@@ -184,7 +185,7 @@ Se aplanó la nube: la segunda coordenada se multiplicó por un espesor δ que b
 
 *σ₂(M) es el promedio sobre las corridas con ruido.*
 
-> **Cómo leer los porcentajes.** Con 20 repeticiones por fila, cada corrida pesa 5 puntos. El **10 %** de δ = 0.003 son 2 de 20 y el **70 %** de δ = 0.001 son **14 de 20** corridas. Con 4000 repeticiones (misma nube y mismo ruido) esas filas dan ≈ 21 % y ≈ 38 %. El 70 % es entonces una muestra extrema (14 o más de 20 ocurre con probabilidad inferior al 2 % si la fracción real es ≈ 0.4), pero es lo que reproduce la semilla fija y por eso figura en la tabla de valores de referencia del README. La conclusión no cambia: el error es muy frecuente y el residuo es constante.
+> **Cómo leer los porcentajes.** Con 20 repeticiones por fila, cada corrida pesa 5 puntos porcentuales y la incertidumbre es grande: el **10 %** de δ = 0.003 son 2 de 20 corridas y el **70 %** de δ = 0.001 son **14 de 20**. Con 20 corridas, el intervalo de confianza al 95 % del 70 % va aproximadamente de 48 % a 86 %. La simulación auxiliar (§5.4), con 400 repeticiones para estas mismas configuraciones, da **≈ 19 %** (δ = 0.003) y **≈ 42 %** (δ = 0.001); esas son las estimaciones estables. La conclusión no cambia: el error es muy frecuente y el residuo es constante.
 
 ![Error de recuperación, residuo y fracción de reflexiones](../results/fig3_casi_colineal.png)
 ![Nube casi colineal antes y después](../results/fig4_colineal_puntos.png)
@@ -196,10 +197,40 @@ Se aplanó la nube: la segunda coordenada se multiplicó por un espesor δ que b
 3. **SO(2) permanece estable.** `‖Q − Q₀‖` se queda en torno a 10⁻³ para todo δ y coincide con la perturbación `‖Q(Y) − Q(Y limpia)‖` (figura 3). Cuando la verdad es una rotación (det(UVᵀ) = +1), el costo crece al alejarse del óptimo como $(\sigma_1+\sigma_2)\theta^2$; como σ₁ es grande, el ángulo queda bien determinado por la dirección de la recta aunque σ₂ sea casi cero.
 4. **En O(2) el problema es elegir entre dos candidatas.** Una rotación (det = +1) y una reflexión (det = −1) casi igual de buenas, con costos mínimos que difieren exactamente en 4σ₂(M). Para puntos sobre una recta, una rotación y la reflexión respecto de esa recta los mueven casi igual; solo las distingue la minúscula componente perpendicular. Cuando 4σ₂(M) es comparable con la perturbación que el ruido induce en esa componente, **el ruido decide** cuál devuelve el algoritmo.
 5. **Cada confusión cuesta ≈ 2** (sección 4.3). Por eso el error medio es ≈ 2 × fracción de reflexiones: 2 × 0.10 = 0.20 (δ = 0.003) y 2 × 0.70 = 1.40 (δ = 0.001). Es una comprobación de consistencia de la tabla.
-6. **Única en teoría, ambigua en la práctica.** Mientras σ₂(M) > 0 la solución en O(2) es única (teorema de unicidad [1]), pero con σ₂(M) ≈ 10⁻⁴ una perturbación pequeña basta para pasar de una candidata a la otra. Es el sentido de "direcciones poco observables" del planteamiento.
+6. **Única en teoría, ambigua en la práctica.** Mientras σ₂(M) > 0 la solución en O(2) es única (desarrollo, sección 4; Cor. 5.2 de [8]), pero con σ₂(M) ≈ 10⁻⁴ una perturbación pequeña basta para pasar de una candidata a la otra. Es el sentido de "direcciones poco observables" del planteamiento.
 7. **Por qué det Q = +1 lo resuelve.** Las candidatas tienen determinantes opuestos; exigir det Q = +1 elimina la ambigüedad. Pero solo es legítimo si se sabe de antemano que la verdad es una rotación; si no, se obtiene el error constante de ≈ 2 del Experimento B.
 
 > **Conclusión C.** Un buen ajuste no garantiza identificar la transformación: el residuo se mantuvo en 0.032 mientras el error de O(2) se multiplicó por mil. Se confirma **H2** con el matiz de que lo que se vuelve inestable no es el ángulo sino la **elección entre rotación y reflexión**.
+>
+> ### 5.4 Simulación auxiliar: criterio relativo r
+
+**Qué se hizo.** El Experimento C varía solo δ con ε fijo, así que no permite saber si lo que importa es el espesor de la nube, el ruido o la relación entre ambos. La simulación `src/simulacion_criterio_relativo.py` usa la misma nube base y recorre **4 niveles de ruido (ε = 0.005, 0.01, 0.02, 0.05) × 9 espesores (δ de 0.0003 a 0.1)**, con **400 repeticiones** por combinación (semilla 1). Para cada combinación calcula la fracción de corridas en que O(2) devuelve una reflexión y el cociente
+
+$$
+r=\frac{\sigma_2(M_{\text{limpia}})}{s\,\sigma_2(X_c)}=\frac{\sigma_2(X_c)}{s},\qquad s=\frac{\varepsilon\lVert X_c\rVert_F}{\sqrt{2N}},
+$$
+
+que mide el espesor de la nube en la dirección débil en unidades de ruido. (Sin ruido, $M=X_c^\top X_cQ_0$, por lo que $\sigma_2(M)=\sigma_2(X_c)^2$; el ruido aporta a M, en la dirección débil, una perturbación del orden de $\sigma_2(X_c)\,s$. El cociente compara señal y perturbación.)
+
+**Resultados** (`results/simulacion_criterio_relativo.csv`):
+
+| r | Fracción de reflexiones erróneas en O(2) |
+|---|---|
+| < 0.3 | 40–50 % |
+| 0.5 – 1 | 20–30 % |
+| 1 – 2 | 4–16 % |
+| ≥ 3 | ≈ 0 % |
+
+Ejemplo: con r ≈ 0.57 se obtiene 29.5 % (ε = 0.05, δ = 0.01), 23.8 % (ε = 0.01, δ = 0.002) y 25.3 % (ε = 0.005, δ = 0.001). Son combinaciones muy distintas de ruido y espesor con casi la misma frecuencia de error.
+
+**Interpretación.**
+1. **Lo que decide es r, no δ ni ε por separado.** Combinaciones distintas con el mismo r dan frecuencias similares. Se confirma **H4**.
+2. **Tres regímenes.** Con r ≳ 3, O(2) es confiable; con r ≈ 1, falla en un 10–20 % de los casos; con r ≲ 0.3, elige rotación o reflexión casi al azar (cerca de 50 %).
+3. **σ₂/σ₁ no basta como diagnóstico.** Mide qué tan delgada es la nube, pero ignora el ruido: la misma nube puede dar 0 % o 50 % de errores según ε.
+4. **Coherencia con el Experimento C** (ε = 0.01): δ = 0.01 da r = 2.83 (0 %), δ = 0.003 da r = 0.85 (19 %) y δ = 0.001 da r = 0.28 (42 %).
+5. **Alcance.** r se justifica por orden de magnitud; la relación entre r y la frecuencia de error se obtuvo numéricamente, no con una fórmula cerrada.
+
+> **Conclusión de la simulación.** La confiabilidad de O(2) con nubes casi colineales se resume en r = σ₂(Xc)/s: la advertencia cualitativa "cuidado con σ₂ pequeño" [8, secc. 11.2] se convierte en un criterio cuantitativo.
 
 ---
 
@@ -210,9 +241,9 @@ Se aplanó la nube: la segunda coordenada se multiplicó por un espesor δ que b
 | **A. Rotación con ruido** | ε de 0 a 0.5; verdad = rotación; SO(2) | Error angular casi proporcional a ε (0.066° → 2.4°); error menor que el residuo | Con buena estructura el método es estable. **H1** |
 | **B. Reflexión** | Verdad = reflexión; O(2) vs SO(2) | O(2) siempre acierta; SO(2) con error constante ≈ 2; sobrecosto = 4σ₂(M) | Verifica el teorema SO(p) y el costo de un supuesto equivocado. **H3** |
 | **C. Casi colineal** | δ de 1 a 0.001; ε fijo; verdad = rotación | Residuo constante; SO(2) estable; O(2) confunde rotación y reflexión | Un buen ajuste no implica identificar la transformación. **H2** |
+| **Simulación r** | ε y δ a la vez; 400 repeticiones | La frecuencia de confusión depende solo de r = σ₂(Xc)/s | El diagnóstico es el cociente entre el espesor de la nube y el ruido. **H4** |
 
-**Respuesta a la pregunta del proyecto.** La transformación recuperada por Procrustes es confiable cuando la nube tiene extensión en las dos direcciones del plano y el ruido es moderado: el error crece aproximadamente proporcional al ruido y es menor que el residuo. Deja de serlo (i) con ruido muy alto, donde la dispersión del error es comparable a su media, y (ii) con puntos casi colineales cuando se admiten reflexiones, donde el algoritmo puede confundir una rotación con una reflexión sin que el residuo cambie. El diagnóstico adecuado no es el residuo sino los valores singulares de XcᵀYc en relación con el ruido.
-
+**Respuesta a la pregunta del proyecto.** La transformación recuperada por Procrustes es confiable cuando la nube tiene extensión en las dos direcciones del plano y el ruido es moderado: el error crece aproximadamente proporcional al ruido y es menor que el residuo. Deja de serlo (i) con ruido muy alto, donde la dispersión del error es comparable a su media, y (ii) con puntos casi colineales cuando se admiten reflexiones, donde el algoritmo puede confundir una rotación con una reflexión sin que el residuo cambie. El diagnóstico adecuado no es el residuo ni σ₂/σ₁, sino r = σ₂(Xc)/s, que compara el espesor de la nube en la dirección débil con el ruido (§5.4).
 ---
 
 ## 7. Limitaciones
@@ -220,7 +251,8 @@ Se aplanó la nube: la segunda coordenada se multiplicó por un espesor δ que b
 - **Datos sintéticos y ruido gaussiano isotrópico.** Sin valores atípicos, heterocedasticidad ni datos reales.
 - **Dimensión 2 y sin escala (s = 1).** El análisis de la sección 5 usa que en el plano hay solo dos valores singulares.
 - **Una sola nube base por experimento.** Se repite el ruido, no la nube; otras nubes darían valores algo distintos.
-- **Pocas repeticiones (20).** Sobre todo en el Experimento C, donde los porcentajes tienen margen de ± 10 puntos.
+- **Pocas repeticiones (20) en los experimentos A, B y C.** Sobre todo en el C, donde los porcentajes tienen márgenes de unos ± 20 puntos; por eso se complementó con la simulación de 400 repeticiones (§5.4).
+- **El criterio r es heurístico.** Se justifica por orden de magnitud y se valida numéricamente; no se dedujo la probabilidad exacta de confusión.
 - **Correspondencias conocidas.** El caso de correspondencias desconocidas (Procrustes–Wasserstein [4]) queda fuera del alcance.
 
 ## 8. Conclusiones
@@ -229,7 +261,8 @@ Se aplanó la nube: la segunda coordenada se multiplicó por un espesor δ que b
 2. Con nube bien condicionada, el error de la rotación y de la traslación crece aproximadamente proporcional al ruido y es unas 5 veces menor que el residuo, porque solo se estiman 3 parámetros.
 3. Prohibir reflexiones cuando los datos vienen de una reflexión sube el costo exactamente 4σ₂(M) y da un error constante de ≈ 2.
 4. Con puntos casi colineales, el residuo no cambia pero O(2) puede confundir rotación con reflexión (error ≈ 2 por confusión). SO(2) permanece estable.
-5. El residuo de ajuste no basta para evaluar la alineación: hay que mirar los valores singulares de XcᵀYc en relación con el ruido y verificar con simulación cuando se conoce la verdad.
+5. La frecuencia de confusiones en O(2) depende solo de r = σ₂(Xc)/s: es ≈ 0 % para r ≥ 3 y se acerca al 50 % para r < 0.3.
+6. El residuo de ajuste no basta para evaluar la alineación: hay que comparar el valor singular débil con el ruido y, cuando se conoce la verdad, verificar con simulación.
 
 ## 9. Preguntas de defensa y cómo responderlas
 
@@ -241,17 +274,19 @@ Se aplanó la nube: la segunda coordenada se multiplicó por un espesor δ que b
 | ¿Qué ocurre si se duplica el ruido? | Con buena estructura el error angular se duplica aprox. (primer orden). Con puntos casi colineales sube la fracción de reflexiones erróneas, con máximo ≈ 0.5 |
 | ¿Qué pasa si la verdad es reflexión y se usa SO(2)? | Devuelve una rotación con error constante ≈ 2 y el costo sube 4σ₂(M) |
 | ¿Cómo se comprobó que el código no devuelve la transpuesta? | Con datos exactos, ‖Q − Q₀‖ = 7.5e-16 y ‖Q − Q₀ᵀ‖ = 2.167; el contraste vale porque 50° no hace simétrica a Q₀ |
-| ¿Por qué se descompone XcᵀYc y no XᵀY? | La traslación óptima es b = ȳ − Qᵀx̄; al sustituirla el problema se reduce a la nube centrada |
-
+| ¿Qué es r y por qué ese cociente? | Sin ruido σ₂(M) = σ₂(Xc)²; el ruido aporta a M, en la dirección débil, algo del orden de σ₂(Xc)·s. El cociente es r = σ₂(Xc)/s: el espesor de la nube en unidades de ruido |
+| ¿Por qué la nube Y gira en sentido horario si Q₀ es R(50°)? | Por la convención por filas: xᵢᵀQ₀ equivale a Q₀ᵀxᵢ = R(−50°)xᵢ |
 ## 10. Cómo reproducir estos resultados
 
 ```bash
 pip install -r requirements.txt
 cd results
 python ../src/experimentos_procrustes.py          # Experimentos A, B, C y verificaciones -> results/
+cd ..
+python src/simulacion_criterio_relativo.py        # Simulación auxiliar (400 repeticiones) -> results/
 ```
 
-Los archivos generados están en `results/`: `resultados.txt` (todas las tablas y verificaciones), `exp2_*`, `exp3_*`, `exp4_*` (CSV de resumen y de corridas), `puntos_X.csv` y `fig1`–`fig4`.
+Los archivos generados están en `results/`: `resultados.txt` (todas las tablas y verificaciones), `exp2_*`, `exp3_*`, `exp4_*` (CSV de resumen y de corridas), `simulacion_criterio_relativo.csv`, `puntos_X.csv` y `fig1`–`fig4`.
 
 ---
 
