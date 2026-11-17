@@ -2,7 +2,7 @@
 
 **Tema asignado:** Alineamiento de configuraciones mediante Procrustes
 
-**Estado del trabajo:** Entrega Parcial (etiqueta: `avance-parcial`)
+**Estado del trabajo:** Entrega final (etiqueta: `entrega-final`). La versión de la entrega parcial está en la etiqueta `avance-parcial`.
 
 ## Integrantes
 * Clara Jimena Palma Dolmos
@@ -39,7 +39,7 @@ Los archivos correspondientes a esta entrega se estructuran de la siguiente mane
 ├── README.md
 ├── requirements.txt
 ├── src/
-│   └── procrustes_experimentos.py
+│   └── experimentos_procrustes.py
 ├── results/
 │   ├── resultados.txt
 │   ├── puntos_X.csv
@@ -49,7 +49,7 @@ Los archivos correspondientes a esta entrega se estructuran de la siguiente mane
 │   └── fig1 … fig4 (.png)
 └── docs/
     ├── desarrollo_matematico.md
-    ├── Interpretacion resultados.md
+    ├── interpretacion_resultados.md
     ├── guion_video.md
     ├── fuentes.md
     ├── contribuciones.md
@@ -59,8 +59,8 @@ Los archivos correspondientes a esta entrega se estructuran de la siguiente mane
 - `src/`: contiene el script principal de Python con el algoritmo y los experimentos.
 - `results/`: archivos generados por el código (tablas `.csv`, gráficos `.png` y el registro `resultados.txt`). Se incluyen ya generados para poder revisarlos sin ejecutar nada; ejecutar el script los regenera con el mismo contenido (semilla fija).
 - `requirements.txt`: dependencias y versiones exactas necesarias para la ejecución.
-- `docs/`: desarrollo matemático completo, interpretación de resultados, guion del video, fuentes (IEEE), registro de contribuciones y declaración de uso de IA.
-
+- `docs/`: desarrollo matemático (`desarrollo_matematico.md`), interpretación de resultados (`interpretacion_resultados.md`), guion del video, fuentes en formato IEEE, registro de contribuciones y declaración de uso de IA.
+  
 ## Instrucciones de ejecución
 
 **Requisitos:** Python 3.14.5 (versión con la que se obtuvieron los resultados) y las bibliotecas de `requirements.txt` (NumPy, Matplotlib y SciPy, con sus versiones).
@@ -112,12 +112,11 @@ El archivo src/procrustes_experimentos.py está dividido en secciones identifica
 | 5. Repeticiones, media y dispersión, figuras con ejes iguales | F y G | REPS, agg(), save_csv(), eq(), fig1 a fig4 |
 | Núcleo común | A | procrustes(), rot(), rng_for(), make_noise(), cost(), angle_deg(), metrics() |
 | Ejecución | H | main() |
-
+| Verificaciones (SciPy, ortogonalidad, fórmula del mínimo) | H | verificaciones() |
 
 **2. Importaciones**
 
-Se usan csv, numpy, matplotlib (con el backend Agg, que permite guardar figuras sin abrir ventanas) y scipy (solo `scipy.linalg.orthogonal_procrustes`, para la verificación).
-
+Se usan csv, numpy, matplotlib (con el backend Agg, que permite guardar figuras sin abrir ventanas) y scipy (solo `scipy.linalg.orthogonal_procrustes`, para la verificación con una implementación independiente).
 
 **3. Sección 0: parámetros y semilla**
 
@@ -177,7 +176,7 @@ Todas las figuras de puntos usan ax.set_aspect("equal") (función eq), para que 
 
 **11. Sección H: verificaciones y programa principal**
 
-`verificaciones()` compara la solución con `scipy.linalg.orthogonal_procrustes`, comprueba la ortogonalidad de Q, la fórmula del costo mínimo, el determinante y el contraste con la transpuesta Q₀ᵀ. `main()` ejecuta todo en orden: genera los puntos, corre los tres experimentos con sus repeticiones, las verificaciones, produce las cuatro figuras y guarda el registro completo en resultados.txt.
+`verificaciones()` compara la solución con `scipy.linalg.orthogonal_procrustes`, comprueba la ortogonalidad de Q, la fórmula del costo mínimo, el determinante y el contraste con la transpuesta Q₀ᵀ. `main()` ejecuta todo en orden: genera los puntos, corre los tres experimentos con sus repeticiones, ejecuta `verificaciones()` (comparación con SciPy, ‖QᵀQ − I‖ y fórmula del costo mínimo), produce las cuatro figuras y guarda el registro completo en resultados.txt.
 
 
 ## Resultados principales
@@ -206,7 +205,8 @@ Figuras (en `results/`):
 ![Casi colinealidad](results/fig3_casi_colineal.png)
 ![Puntos casi colineales](results/fig4_colineal_puntos.png)
 
-El desarrollo matemático completo está en [`docs/desarrollo_matematico.md`](docs/desarrollo_matematico.md) y las tablas e interpretación en [`docs/Interpretacion resultados.md`](docs/Interpretacion%20resultados.md). En la interpretación los experimentos se llaman A, B y C; corresponden a los Exp. 2, 3 y 4 del código y de las figuras.
+El desarrollo matemático completo está en [`docs/desarrollo_matematico.md`](docs/desarrollo_matematico.md) y las tablas e interpretación detallada en [`docs/interpretacion_resultados.md`](docs/interpretacion_resultados.md).
+En la interpretación los experimentos se llaman A, B y C; corresponden a los Exp. 2, 3 y 4 del código y de las figuras.
 
 ## Referencias
 
