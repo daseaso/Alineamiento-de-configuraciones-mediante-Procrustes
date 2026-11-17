@@ -1,6 +1,6 @@
 # Fuentes citadas en el proyecto (formato IEEE)
 
-La numeración es única para todo el repositorio: los números entre corchetes que aparecen en `desarrollo_matematico.md` y en `Interpretacion resultados.md` remiten a esta lista. Debajo de cada fuente se indica en qué parte del trabajo se usa.
+La numeración es única para todo el repositorio: los números entre corchetes que aparecen en `desarrollo_matematico.md` y en `Interpretacion_resultados.md` remiten a esta lista. Debajo de cada fuente se indica en qué parte del trabajo se usa.
 
 [1] P. H. Schönemann, "A generalized solution of the orthogonal Procrustes problem," *Psychometrika*, vol. 31, no. 1, pp. 1–10, Mar. 1966, doi: 10.1007/BF02289451.
 
