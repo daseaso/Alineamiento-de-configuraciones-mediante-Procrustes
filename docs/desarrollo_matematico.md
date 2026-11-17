@@ -183,7 +183,7 @@ En los experimentos se fija $`s=1`$ (solo rotación/reflexión y traslación).
 
 ## 7. Algoritmo y su correspondencia con el código
 
-La implementación usa NumPy [[5]](fuentes.md#ref5) y está en `src/experimentos_procrustes.py`.
+La implementación usa NumPy [[5]](fuentes.md#ref5). La función `procrustes()` está en [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py); la simulación auxiliar [`src/simulacion_criterio_relativo.py`](../src/simulacion_criterio_relativo.py) la reutiliza.
 
 | Paso | Fórmula | En `procrustes()` |
 |---|---|---|
@@ -193,7 +193,7 @@ La implementación usa NumPy [[5]](fuentes.md#ref5) y está en `src/experimentos
 | 4. Ortogonal / rotación | $`Q=UV^\top`$ ó $`Q=UDV^\top`$ | `Q = U @ D @ Vt` (con `D = I` en $`O(2)`$) |
 | 5. Traslación | $`b^\top=\bar y^\top-\bar x^\top Q`$ | `b = my - mx @ Q` |
 
-**Verificaciones teóricas que se comprueban numéricamente** (resultados en [`results/resultados.txt`](../results/resultados.txt), [`exp3_reflexion_resumen.csv`](../results/exp3_reflexion_resumen.csv) y la [interpretación](Interpretacion_resultados.md#s2)): costo mínimo $`=\lVert X_c\rVert_F^2+\lVert Y_c\rVert_F^2-2(\sigma_1+\sigma_2)`$ ([sección 3](#sec3)); diferencia de costos $`=4\sigma_2(M)`$ ([sección 5](#sec5)); coincidencia con `scipy.linalg.orthogonal_procrustes` [[6]](fuentes.md#ref6) aplicada a datos centrados (SciPy no centra ni estima traslación).
+**Verificaciones teóricas que se comprueban numéricamente** (función `verificaciones()` de [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py); resultados en [`results/resultados.txt`](../results/resultados.txt), [`exp3_reflexion_resumen.csv`](../results/exp3_reflexion_resumen.csv) y la [interpretación](Interpretacion_resultados.md#s2)): costo mínimo $`=\lVert X_c\rVert_F^2+\lVert Y_c\rVert_F^2-2(\sigma_1+\sigma_2)`$ ([sección 3](#sec3)); diferencia de costos $`=4\sigma_2(M)`$ ([sección 5](#sec5)); coincidencia con `scipy.linalg.orthogonal_procrustes` [[6]](fuentes.md#ref6) aplicada a datos centrados (SciPy no centra ni estima traslación).
 
 ## Referencias
 
