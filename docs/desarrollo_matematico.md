@@ -212,7 +212,7 @@ La implementación usa NumPy [[5]](fuentes.md#ref5). La función `procrustes()` 
 
 ## 8. Sensibilidad: por qué SO(2) es estable y O(2) no con puntos casi colineales
 
-Esta sección y la siguiente desarrollan la observación de [[8, secc. 11.2]](fuentes.md#ref8) ("si $`\sigma_p`$ es pequeño, la solución es única pero sensible") y abordan la pregunta P1 de su agenda [[8, secc. 16]](fuentes.md#ref8): cómo se relaciona el menor valor singular de $`X^\top Y`$ con la sensibilidad de $`Q^*`$. Son desarrollo propio del grupo.
+Esta sección y la siguiente desarrollan la observación de [[8, secc. 11.2]](fuentes.md#ref8) (con el menor valor singular muy pequeño, "la solución es única aunque sensible a perturbaciones") y abordan la pregunta P1 de su agenda [[8, secc. 16]](fuentes.md#ref8): cómo se relaciona el menor valor singular de $`X^\top Y`$ con la sensibilidad de $`Q^*`$. Son desarrollo propio del grupo.
 
 **Costo al alejarse del óptimo con una rotación.** Supongamos $`\det(UV^\top)=+1`$ (la verdad es una rotación) y tomemos una rotación cualquiera $`Q=U\,R(\theta)\,V^\top`$, es decir $`Z=R(\theta)`$. Entonces $`z_{11}=z_{22}=\cos\theta`$ y
 
