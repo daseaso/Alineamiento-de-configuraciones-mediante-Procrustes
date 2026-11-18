@@ -12,6 +12,8 @@ El grupo usó herramientas de IA generativa como apoyo en las partes indicadas a
 |---|---|---|---|
 | 1 | Claude (Anthropic), modelo Claude Sonnet 5.5 | Apoyo en la redacción de la interpretación de resultados a partir del avance y del código del grupo | [`docs/Interpretacion_resultados.md`](Interpretacion_resultados.md) |
 | 2 | Claude (Anthropic), modelo Claude Opus 5.5, 16/11/2026 | Revisión de coherencia del repositorio antes de la entrega y apoyo en las correcciones | [`docs/desarrollo_matematico.md`](desarrollo_matematico.md), [`README.md`](../README.md), [`docs/fuentes.md`](fuentes.md), [`docs/guion_video.md`](guion_video.md), [`docs/contribuciones.md`](contribuciones.md), [`docs/Interpretacion_resultados.md`](Interpretacion_resultados.md), función `verificaciones()` de [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py) y carpeta `results/` |
+| 3 | Claude (Anthropic), Claude Opus 5.5, 16/11/2026 | Apoyo en las diapositivas y en la redacción del guion | Diapositivas del video y [`docs/guion_video.md`](guion_video.md) |
+
 
 ## 2. Instrucciones (prompts) relevantes
 
@@ -21,6 +23,7 @@ El grupo usó herramientas de IA generativa como apoyo en las partes indicadas a
 
 1. Se compartieron los comentarios de revisión del grupo (nombres de archivo en las instrucciones, verificaciones faltantes en los resultados, valores del README, fuentes no citadas y contradicciones entre el guion y la interpretación) y el repositorio completo, con la instrucción de revisar qué faltaba corregir para la entrega final.
 2. Revisión del guion del video: duración y correspondencia con las diapositivas.
+**Uso 3 - presentación y guion.** Se compartieron la presentación y el guion con la instrucción de señalar problemas de legibilidad y duración, y de proponer una versión más clara de las diapositivas de los experimentos y de las intervenciones.
 
 
 ## 3. Qué hizo la IA en cada parte
@@ -33,6 +36,7 @@ El grupo usó herramientas de IA generativa como apoyo en las partes indicadas a
   - Alineó sus afirmaciones con la interpretación (estabilidad de SO(2) en el Exp. C, diagnóstico con σ₂(M) frente al ruido, comportamiento con ruido alto).
   - Propuso la redacción de las secciones nuevas del desarrollo matemático: supuestos (sección 0), sentido de giro, sensibilidad (σ₁+σ₂)θ² frente a 4σ₂ (sección 8) y la justificación teórica del criterio r = σ₂(Xc)/s (sección 9), así como las citas a los resultados concretos de [8].
   - Propuso la redacción de la sección 5.4 de la interpretación. El script de la simulación (`src/simulacion_criterio_relativo.py`) es del grupo; la IA verificó que reproduce el CSV y redactó su justificación y descripción.
+- **Presentación y guion (uso 3):** la IA creó un modelo/sugerencia de organización de las diapositivas. Se tuvo que adaptar con imágenes, tablas, resultados e interpretación del proyecto.
 
 
 ## 4. Cómo se verificó
