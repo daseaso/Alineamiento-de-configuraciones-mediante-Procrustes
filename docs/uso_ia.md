@@ -23,6 +23,7 @@ El grupo usó herramientas de IA generativa como apoyo en las partes indicadas a
 
 1. Se compartieron los comentarios de revisión del grupo (nombres de archivo en las instrucciones, verificaciones faltantes en los resultados, valores del README, fuentes no citadas y contradicciones entre el guion y la interpretación) y el repositorio completo, con la instrucción de revisar qué faltaba corregir para la entrega final.
 2. Revisión del guion del video: duración y correspondencia con las diapositivas.
+   
 **Uso 3 - presentación y guion.** Se compartieron la presentación y el guion con la instrucción de señalar problemas de legibilidad y duración, y de proponer una versión más clara de las diapositivas de los experimentos y de las intervenciones.
 
 
