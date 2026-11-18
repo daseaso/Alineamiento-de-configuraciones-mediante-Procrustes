@@ -111,7 +111,7 @@
 >
 > El núcleo es la función procrustes, que sigue cinco pasos. Primero, centra los puntos restando el promedio, para eliminar la traslación. Segundo, forma la matriz M como Xc transpuesta por Yc. Tercero, calcula su descomposición en valores singulares. Cuarto, si queremos solo rotaciones, corrige el signo con la matriz D. Y quinto, recupera la traslación a partir de los centroides.
 >
-> Cuidamos dos detalles para que los resultados sean confiables. Usamos una semilla fija, así que cualquiera puede repetir exactamente nuestros experimentos. Y generamos el ruido con un tamaño exacto, proporcional al tamaño de la nube de puntos, para comparar niveles de ruido de forma justa. Además, cada nivel se repite cuatrocientas veces.
+> Cuidamos dos detalles para que los resultados sean confiables. Usamos una semilla fija, así que cualquiera puede repetir exactamente nuestros experimentos. Y generamos el ruido con un tamaño exacto, proporcional al tamaño de la nube de puntos, para comparar niveles de ruido de forma justa. Además, cada experimento se repite cuatrocientas veces.
 
 ---
 
