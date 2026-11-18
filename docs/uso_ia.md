@@ -36,7 +36,7 @@ El grupo usó herramientas de IA generativa como apoyo en las partes indicadas a
   - Unificó las tres listas de referencias en una sola lista IEEE (`docs/fuentes.md`) y retiró las fuentes que no se citaban en ningún documento.
   - Alineó sus afirmaciones con la interpretación (estabilidad de SO(2) en el Exp. C, diagnóstico con σ₂(M) frente al ruido, comportamiento con ruido alto).
   - Propuso la redacción de las secciones nuevas del desarrollo matemático: supuestos (sección 0), sentido de giro, sensibilidad (σ₁+σ₂)θ² frente a 4σ₂ (sección 8) y la justificación teórica del criterio r = σ₂(Xc)/s (sección 9), así como las citas a los resultados concretos de [8].
-    - Propuso la redacción de la sección 5.4 de la interpretación y verificó que el script de la simulación reproduce el CSV.
+  - Propuso la redacción de la sección 5.4 de la interpretación y verificó que el script de la simulación reproduce el CSV.
 - **Presentación y guion (uso 3):** la IA creó un modelo/sugerencia de organización de las diapositivas. Se tuvo que adaptar con imágenes, tablas, resultados e interpretación del proyecto.
 - **Simulación auxiliar (uso 4):** la IA generó el script [`src/simulacion_criterio_relativo.py`](../src/simulacion_criterio_relativo.py) (4 niveles de ruido × 9 espesores × 400 repeticiones y el cálculo del cociente r) y, al ejecutarlo, el archivo [`results/simulacion_criterio_relativo.csv`](../results/simulacion_criterio_relativo.csv). El grupo planteó la pregunta (si importa más el espesor de la nube o el ruido), revisó el código, lo ejecutó para comprobar que reproduce el CSV e interpretó los resultados.
 
