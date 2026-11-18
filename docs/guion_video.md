@@ -165,7 +165,7 @@
 
 **Intervención prevista**
 
-> Cuando la verdad es una reflexión y obligamos al algoritmo a usar solo rotaciones, el ajuste empeora, y la teoría nos dice exactamente cuánto: el costo sube cuatro sigma dos, donde sigma dos es el segundo valor singular de la matriz M. Al comparar la diferencia de costos entre SO(2) y (O2) con el valor de cuatro sigma dos, vemos que coinciden en todos los niveles de ruido. De hecho, en las ciento cuarenta corridas la diferencia máxima fue de apenas diez a la menos trece, que es solo redondeo de la máquina, así que la fórmula se cumple.
+> Cuando la verdad es una reflexión y obligamos al algoritmo a usar solo rotaciones, el ajuste empeora, y la teoría nos dice exactamente cuánto: el costo sube cuatro sigma dos, donde sigma dos es el segundo valor singular de la matriz M. Al comparar la diferencia de costos entre SO(2) y O(2) con el valor de cuatro sigma dos, vemos que coinciden en todos los niveles de ruido. De hecho, en las ciento cuarenta corridas la diferencia máxima fue de apenas diez a la menos trece, que es solo redondeo de la máquina, así que la fórmula se cumple.
 
 ---
 
@@ -183,7 +183,7 @@
 **Intervención prevista**
 
 > En el tercer experimento mantuvimos el ruido fijo y fuimos aplanando la nube de puntos. Su espesor, que llamamos delta, baja de uno, que es una nube normal, hasta una milésima, cuando ya es casi una línea recta. Lo curioso es que, aunque la nube cambia tanto, el residuo de ajuste se mantiene en tres centésimas de principio a fin, así que el ajuste parece igual de bueno en todos los casos.
-
+> Estos tres gráficos muestran lo que pasa en realidad, y en todos la nube se aplana a medida que avanzamos hacia la derecha. En el primero vemos el error de la transformación recuperada: mientras SO(2), en verde, se mantiene en una milésima, O(2), en naranja, se dispara hasta 1,4. Sin embargo, en el segundo el residuo de ajuste sigue plano, es decir, no nos avisa de que algo anda mal. El tercero explica ese salto: con la nube más plana, O(2) empieza a elegir una reflexión en vez de la rotación, en catorce de veinte corridas, y cerca del 40% de las veces cuando repetimos 400 veces. Por eso decimos que un buen ajuste no garantiza haber encontrado la transformación correcta.
 ---
 
 ## Bloque 8. Interpretación de los resultados
@@ -201,9 +201,9 @@
 
 **Intervención prevista**
 
-> Estos tres gráficos muestran lo que pasa en realidad, y en todos la nube se aplana a medida que avanzamos hacia la derecha. En el primero vemos el error de la transformación recuperada: mientras SO(2), en verde, se mantiene en una milésima, O(2) , en naranja, se dispara hasta 1,4. Sin embargo, en el segundo el residuo de ajuste sigue plano, es decir, no nos avisa de que algo anda mal. El tercero explica ese salto: con la nube más plana, O(2) empieza a elegir una reflexión en vez de la rotación, en catorce de veinte corridas, y cerca del 40% de las veces cuando repetimos 400 veces. Por eso decimos que un buen ajuste no garantiza haber encontrado la transformación correcta.
+
 > Esto ocurre porque, cuando los puntos están casi en una recta, una rotación y una reflexión los dejan prácticamente en el mismo lugar, y lo único que las distingue es el grosor de la nube. Si ese grosor es tan pequeño como el ruido, termina siendo el ruido el que decide cuál elige o de dos. Ese o de dos evita este problema porque descarta la reflexión, aunque eso solo sirve si sabemos de antemano que la verdad es una rotación.
-> Para medirlo definimos r, que es el grosor de la nube, es decir, su segundo valor singular, dividido entre el tamaño del ruido. Con una simulación de 400 repeticiones comprobamos que es justamente r lo que decide. Cuando r es mayor que tres, o de dos es confiable; cuando está cerca de uno, falla entre el 10% y el 20% de las veces; y cuando baja de 0,3 , elige casi al azar. En conclusión, para confiar en el resultado no basta con mirar el residuo: también hay que mirar r.
+> Para medirlo definimos r, que es el grosor de la nube, es decir, su segundo valor singular, dividido entre el tamaño del ruido. Con una simulación de 400 repeticiones comprobamos que es justamente r lo que decide. Cuando r es mayor que tres, o de dos es confiable; cuando está cerca de uno, falla entre el 10% y el 20% de las veces; y cuando baja de 0.3, elige casi al azar. En conclusión, para confiar en el resultado no basta con mirar el residuo: también hay que mirar r.
 
 ---
 
