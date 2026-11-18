@@ -245,7 +245,7 @@ Se aplanó la nube: la segunda coordenada se multiplicó por un espesor δ que b
 |---|---|
 | < 0.3 | 40–50 % |
 | 0.5 – 1 | 20–30 % |
-| 1 – 2 | 4–16 % |
+| 1 – 2 | 3–17 % |
 | ≥ 3 | ≈ 0 % |
 
 Ejemplo: con r ≈ 0.57 se obtiene 29.5 % (ε = 0.05, δ = 0.01), 23.8 % (ε = 0.01, δ = 0.002) y 25.3 % (ε = 0.005, δ = 0.001). Son combinaciones muy distintas de ruido y espesor con casi la misma frecuencia de error.
