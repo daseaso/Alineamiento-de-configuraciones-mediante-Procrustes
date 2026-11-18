@@ -222,7 +222,7 @@ Con 20 repeticiones cada corrida pesa 5 puntos porcentuales, así que esos porce
 |---|---|
 | $`< 0.3`$ | 40–50 % |
 | $`0.5 – 1`$ | 20–30 % |
-| $`1 – 2`$ | 4–16 % |
+| $`1 – 2`$ | 3–17 % |
 | $`\ge 3`$ | $`\approx 0\,\%`$ |
 
 Datos: [`simulacion_criterio_relativo.csv`](results/simulacion_criterio_relativo.csv). Detalle en [§5.4 de la interpretación](docs/Interpretacion_resultados.md#s5-4).
