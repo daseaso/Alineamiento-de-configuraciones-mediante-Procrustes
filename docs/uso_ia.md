@@ -13,7 +13,7 @@ El grupo usó herramientas de IA generativa como apoyo en las partes indicadas a
 | 1 | Claude (Anthropic), modelo Claude Sonnet 5.5 | Apoyo en la redacción de la interpretación de resultados a partir del avance y del código del grupo | [`docs/Interpretacion_resultados.md`](Interpretacion_resultados.md) |
 | 2 | Claude (Anthropic), modelo Claude Opus 5.5, 16/11/2026 | Revisión de coherencia del repositorio antes de la entrega y apoyo en las correcciones | [`docs/desarrollo_matematico.md`](desarrollo_matematico.md), [`README.md`](../README.md), [`docs/fuentes.md`](fuentes.md), [`docs/guion_video.md`](guion_video.md), [`docs/contribuciones.md`](contribuciones.md), [`docs/Interpretacion_resultados.md`](Interpretacion_resultados.md), función `verificaciones()` de [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py) y carpeta `results/` |
 | 3 | Claude (Anthropic), Claude Opus 5.5, 16/11/2026 | Apoyo en las diapositivas y en la redacción del guion | Diapositivas del video y [`docs/guion_video.md`](guion_video.md) |
-
+| 4 | Claude (Anthropic), modelo [MODELO QUE USARON] | Generación del script de la simulación auxiliar de 400 repeticiones | [`src/simulacion_criterio_relativo.py`](../src/simulacion_criterio_relativo.py), [`results/simulacion_criterio_relativo.csv`](../results/simulacion_criterio_relativo.csv) |
 
 ## 2. Instrucciones (prompts) relevantes
 
@@ -38,7 +38,7 @@ El grupo usó herramientas de IA generativa como apoyo en las partes indicadas a
   - Propuso la redacción de las secciones nuevas del desarrollo matemático: supuestos (sección 0), sentido de giro, sensibilidad (σ₁+σ₂)θ² frente a 4σ₂ (sección 8) y la justificación teórica del criterio r = σ₂(Xc)/s (sección 9), así como las citas a los resultados concretos de [8].
     - Propuso la redacción de la sección 5.4 de la interpretación y verificó que el script de la simulación reproduce el CSV.
 - **Simulación auxiliar (uso 3):** la IA generó el script [`src/simulacion_criterio_relativo.py`](../src/simulacion_criterio_relativo.py) (4 niveles de ruido × 9 espesores × 400 repeticiones y el cálculo del cociente r) y, al ejecutarlo, el archivo [`results/simulacion_criterio_relativo.csv`](../results/simulacion_criterio_relativo.csv). El grupo planteó la pregunta (si importa más el espesor de la nube o el ruido), revisó el código, lo ejecutó para comprobar que reproduce el CSV e interpretó los resultados.
-- **Presentación y guion (uso 3):** la IA creó un modelo/sugerencia de organización de las diapositivas. Se tuvo que adaptar con imágenes, tablas, resultados e interpretación del proyecto.
+- **Presentación y guion (uso 4):** la IA creó un modelo/sugerencia de organización de las diapositivas. Se tuvo que adaptar con imágenes, tablas, resultados e interpretación del proyecto.
 
 
 ## 4. Cómo se verificó
