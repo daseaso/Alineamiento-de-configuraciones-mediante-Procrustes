@@ -13,7 +13,7 @@ El grupo usó herramientas de IA generativa como apoyo en las partes indicadas a
 | 1 | Claude (Anthropic), modelo Claude Sonnet 5.5 | Apoyo en la redacción de la interpretación de resultados a partir del avance y del código del grupo | [`docs/Interpretacion_resultados.md`](Interpretacion_resultados.md) |
 | 2 | Claude (Anthropic), modelo Claude Opus 5.5, 16/11/2026 | Revisión de coherencia del repositorio antes de la entrega y apoyo en las correcciones | [`docs/desarrollo_matematico.md`](desarrollo_matematico.md), [`README.md`](../README.md), [`docs/fuentes.md`](fuentes.md), [`docs/guion_video.md`](guion_video.md), [`docs/contribuciones.md`](contribuciones.md), [`docs/Interpretacion_resultados.md`](Interpretacion_resultados.md), función `verificaciones()` de [`src/experimentos_procrustes.py`](../src/experimentos_procrustes.py) y carpeta `results/` |
 | 3 | Claude (Anthropic), Claude Opus 5.5, 16/11/2026 | Apoyo en las diapositivas y en la redacción del guion | Diapositivas del video y [`docs/guion_video.md`](guion_video.md) |
-| 4 | Claude (Anthropic),  Claude Opus 5.5, 16/11/2026 | Generación del script de la simulación auxiliar de 400 repeticiones | [`src/simulacion_criterio_relativo.py`](../src/simulacion_criterio_relativo.py), [`results/simulacion_criterio_relativo.csv`](../results/simulacion_criterio_relativo.csv) |
+| 4 | Claude (Anthropic),  Claude Opus 5.5, 14/11/2026 | Generación del script de la simulación auxiliar de 400 repeticiones | [`src/simulacion_criterio_relativo.py`](../src/simulacion_criterio_relativo.py), [`results/simulacion_criterio_relativo.csv`](../results/simulacion_criterio_relativo.csv) |
 
 ## 2. Instrucciones (prompts) relevantes
 
